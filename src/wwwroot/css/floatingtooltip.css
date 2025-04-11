@@ -3,6 +3,7 @@
 .floating-tooltip-anchor {
     display: inline-block;
     position: relative;
+    width: fit-content;
 }
 
 [id^="tooltip-"] {
