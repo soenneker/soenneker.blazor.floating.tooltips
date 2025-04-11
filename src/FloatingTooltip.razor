@@ -1,0 +1,185 @@
+@using System.Threading
+@using Microsoft.JSInterop
+@using Soenneker.Blazor.Floating.Tooltips.Abstract
+@using Soenneker.Blazor.Floating.Tooltips.Options
+@using Soenneker.Blazor.Floating.Tooltips.Enums
+@using Soenneker.Extensions.String
+@using Soenneker.Blazor.Extensions.EventCallback
+@using Soenneker.Extensions.Task
+@using Soenneker.Extensions.ValueTask
+
+@inject IFloatingTooltipInterop TooltipInterop
+
+@implements IFloatingTooltip
+
+<CascadingValue Value="this" >
+    <div id="@($"anchor-{Id}")" class="floating-tooltip-anchor" @attributes="AnchorAttributes" >
+        @ChildContent
+    </div>
+
+    @if (_initialized)
+    {
+        <div id="@($"tooltip-{Id}")" @attributes="TooltipAttributes" >
+            @ResolvedContent
+        </div>
+    }
+</CascadingValue>
+
+@code {
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object?>? TooltipAttributes { get; set; }
+
+    [Parameter]
+    public Dictionary<string, object?>? AnchorAttributes { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = null!;
+
+    private RenderFragment? _tooltipContent;
+
+    [Parameter]
+    public string? ContentText { get; set; }
+
+    [Parameter]
+    public string Id { get; set; } = Guid.NewGuid().ToString();
+
+    [Parameter]
+    public EventCallback OnShow { get; set; }
+
+    [Parameter]
+    public EventCallback OnHide { get; set; }
+
+    [Parameter]
+    public FloatingTooltipOptions Options { get; set; } = new();
+
+    [Parameter]
+    public FloatingTooltipPlacement? Placement { get; set; }
+
+    [Parameter]
+    public bool? Animate { get; set; }
+
+    [Parameter]
+    public int? ShowDelay { get; set; }
+
+    [Parameter]
+    public int? HideDelay { get; set; }
+
+    [Parameter]
+    public bool? ShowArrow { get; set; }
+
+    [Parameter]
+    public bool? Interactive { get; set; }
+
+    [Parameter]
+    public bool? Enabled { get; set; }
+
+    [Parameter]
+    public FloatingTooltipTheme? Theme { get; set; }
+
+    [Parameter]
+    public int? MaxWidth { get; set; }
+
+    [Parameter]
+    public bool? ManualTrigger { get; set; }
+
+    [Parameter]
+    public bool? UseCdn { get; set; }
+
+    private FloatingTooltipOptions MergedOptions => new()
+    {
+        Placement = Placement ?? Options.Placement,
+        Animate = Animate ?? Options.Animate,
+        ShowDelay = ShowDelay ?? Options.ShowDelay,
+        HideDelay = HideDelay ?? Options.HideDelay,
+        ShowArrow = ShowArrow ?? Options.ShowArrow,
+        Interactive = Interactive ?? Options.Interactive,
+        Enabled = Enabled ?? Options.Enabled,
+        Theme = Theme ?? Options.Theme,
+        MaxWidth = MaxWidth ?? Options.MaxWidth,
+        ManualTrigger = ManualTrigger ?? Options.ManualTrigger,
+        UseCdn = UseCdn ?? Options.UseCdn
+    };
+
+    private bool _initialized;
+    private bool _createPending;
+    private readonly CancellationTokenSource _disposeCts = new();
+    private DotNetObjectReference<FloatingTooltip>? _dotNetRef;
+
+    private RenderFragment? ResolvedContent =>
+        _tooltipContent ?? (ContentText.HasContent() ? (RenderFragment) (__builder => __builder.AddContent(0, ContentText)) : null);
+
+    [JSInvokable]
+    public async Task InvokeOnShow()
+    {
+        await OnShow.InvokeIfHasDelegate().NoSync();
+    }
+
+    [JSInvokable]
+    public async Task InvokeOnHide()
+    {
+        await OnHide.InvokeIfHasDelegate().NoSync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await TooltipInterop.Initialize(MergedOptions.UseCdn, _disposeCts.Token).NoSync();
+            _dotNetRef = DotNetObjectReference.Create(this);
+            _initialized = true;
+            _createPending = true;
+            StateHasChanged();
+            return;
+        }
+
+        if (_createPending)
+        {
+            _createPending = false;
+            await TooltipInterop.Create(Id, MergedOptions, _disposeCts.Token).NoSync();
+            await TooltipInterop.SetCallbacks(Id, _dotNetRef!).NoSync();
+        }
+    }
+
+    public async ValueTask Show()
+    {
+        if (_initialized)
+            await TooltipInterop.Show(Id);
+    }
+
+    public async ValueTask Hide()
+    {
+        if (_initialized)
+            await TooltipInterop.Hide(Id);
+    }
+
+    public async ValueTask Toggle()
+    {
+        if (_initialized)
+            await TooltipInterop.Toggle(Id);
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (_tooltipContent != null && ContentText.HasContent())
+        {
+            throw new InvalidOperationException("Both TooltipContent and ContentText were set. Use only one.");
+        }
+    }
+
+    public void SetTooltipContent(RenderFragment content)
+    {
+        _tooltipContent = content;
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        GC.SuppressFinalize(this);
+
+        await _disposeCts.CancelAsync().NoSync();
+        await TooltipInterop.Destroy(Id, CancellationToken.None);
+
+        _dotNetRef?.Dispose();
+        _disposeCts.Dispose();
+    }
+}

@@ -1,0 +1,187 @@
+﻿@page "/"
+@using Microsoft.Extensions.Logging
+@using Soenneker.Blazor.Floating.Tooltips
+@using Soenneker.Blazor.Floating.Tooltips.Enums
+@using Soenneker.Blazor.Floating.Tooltips.Options
+@using Soenneker.Blazor.Floating.Tooltips.Abstract
+@inject ILogger<Index> Logger
+@inject IFloatingTooltipInterop TooltipInterop
+
+<div class="container py-4" >
+    <img src="https://user-images.githubusercontent.com/4441470/224455560-91ed3ee7-f510-4041-a8d2-3fc093025112.png"
+         alt="Soenneker Tooltip Logo"
+         class="mb-3" width="200" />
+
+    <h1 class="display-5 mb-4" >Soenneker.Blazor.Floating.Tooltips Demo</h1>
+    <p class="lead mb-5" >Explore various examples of floating tooltips with different configurations and content types.</p>
+
+    <!-- Basic ContentText tooltip -->
+    <FloatingTooltip ContentText="Hello there 👋" >
+        <button class="btn btn-primary mb-4" >Hover me for a basic tooltip</button>
+    </FloatingTooltip>
+
+    <hr />
+
+    <!-- Custom content with HTML -->
+    <FloatingTooltip>
+        <span class="d-inline-block mb-4 text-info" style="cursor: pointer;" >
+            ℹ️ Hover me for more details
+        </span>
+        <TooltipContent>
+            <div>
+                <strong>Pro Tip:</strong><br />
+                Tooltips can include <em>any markup</em> like <code>&lt;strong&gt;</code> and <code>&lt;em&gt;</code>.
+            </div>
+        </TooltipContent>
+    </FloatingTooltip>
+
+    <hr />
+
+    <!-- Delayed show/hide -->
+    <FloatingTooltip ContentText="Delayed and animated tooltip"
+                     Options="@_delayedOptions" >
+        <button class="btn btn-outline-secondary mb-4" >Delayed Tooltip</button>
+    </FloatingTooltip>
+
+    <hr />
+
+    <!-- Longer custom HTML -->
+    <FloatingTooltip>
+        <span class="badge bg-success" style="cursor: help;" >
+            Hover over this badge
+        </span>
+        <TooltipContent>
+            <div style="max-width: 200px;" >
+                ✅ This badge is interactive.<br />
+                You can insert <b>lists</b>, <i>formatting</i>, or even <code>code</code> blocks here.
+            </div>
+        </TooltipContent>
+    </FloatingTooltip>
+
+    <hr />
+
+    <!-- Tooltip with image content -->
+    <FloatingTooltip>
+        <span class="d-inline-block" style="cursor: pointer;" >
+            🖼 Hover to preview image
+        </span>
+        <TooltipContent>
+            <img src="https://picsum.photos/100/60" alt="Mini preview" />
+        </TooltipContent>
+    </FloatingTooltip>
+
+    <hr />
+
+    <!-- Disabled tooltip -->
+    <FloatingTooltip ContentText="You won't see me 😢"
+                     Options="@_disabledOptions" >
+        <button class="btn btn-danger" disabled >Disabled tooltip</button>
+    </FloatingTooltip>
+
+    <hr />
+
+    <h3 class="mt-5 mb-3" >Placement Examples</h3>
+    @foreach (FloatingTooltipPlacement placement in new[]
+              {
+                  FloatingTooltipPlacement.Top, FloatingTooltipPlacement.Bottom,
+                  FloatingTooltipPlacement.Left, FloatingTooltipPlacement.Right
+              })
+    {
+        <FloatingTooltip ContentText=@($"I'm placed {placement.Value}") Placement="@placement" >
+            <button class="btn btn-outline-dark m-2" >@placement.Value</button>
+        </FloatingTooltip>
+    }
+
+    <hr />
+
+    <h3 class="mt-5 mb-3" >Theme Variations</h3>
+    @foreach (FloatingTooltipTheme theme in new[]
+              {
+                  FloatingTooltipTheme.Dark, FloatingTooltipTheme.Light,
+                  FloatingTooltipTheme.Info, FloatingTooltipTheme.Success,
+                  FloatingTooltipTheme.Warning, FloatingTooltipTheme.Error
+              })
+    {
+        <FloatingTooltip ContentText=@($"Theme: {theme.Value}") Theme="@theme" >
+            <button class="btn btn-outline-secondary m-2" >@theme.Value</button>
+        </FloatingTooltip>
+    }
+
+    <hr />
+
+    <h3 class="mt-5 mb-3" >Max Width and Text Wrapping</h3>
+    <FloatingTooltip MaxWidth="150" ContentText="This is a long tooltip with a max width, which will wrap nicely instead of going off-screen." >
+        <button class="btn btn-outline-info" >Wrapped Content</button>
+    </FloatingTooltip>
+
+    <hr />
+
+    <h3 class="mt-5 mb-3" >Manual Trigger</h3>
+    <FloatingTooltip ManualTrigger="true" @ref="_manualTooltip" ContentText="This tooltip is controlled manually." >
+        <button class="btn btn-outline-primary" @onclick="Toggle" >Click to Toggle Tooltip</button>
+    </FloatingTooltip>
+
+    <hr />
+
+    <h3 class="mt-5 mb-3" >Interactive Tooltip</h3>
+    <FloatingTooltip Interactive="true" >
+        <span class="text-primary" style="cursor: pointer;" >Hover for interactive tooltip</span>
+        <TooltipContent>
+            <div>
+                Click this:
+                <button class="btn btn-sm btn-success ms-2" @onclick="LogTooltipClick" >
+                    Inside
+                </button>
+            </div>
+        </TooltipContent>
+    </FloatingTooltip>
+
+    <hr />
+
+    <h3 class="mt-5 mb-3" >OnShow / OnHide Events</h3>
+    <FloatingTooltip ContentText="I'm logging to the console!"
+                     OnShow="OnShow"
+                     OnHide="OnHide" >
+        <button class="btn btn-outline-warning" >Hover with Logging</button>
+    </FloatingTooltip>
+</div>
+
+@code {
+    FloatingTooltip? _manualTooltip;
+
+    private void LogTooltipClick()
+    {
+        Logger.LogInformation("Clicked inside tooltip");
+    }
+
+    private void OnShow()
+    {
+        Logger.LogInformation("OnShow");
+    }
+
+    private void OnHide()
+    {
+        Logger.LogInformation("OnHide");
+    }
+
+    private readonly FloatingTooltipOptions _delayedOptions = new()
+    {
+        Animate = true,
+        ShowArrow = true,
+        ShowDelay = 500,
+        HideDelay = 300,
+        Theme = FloatingTooltipTheme.Dark,
+        MaxWidth = 220
+    };
+
+    private readonly FloatingTooltipOptions _disabledOptions = new()
+    {
+        Enabled = false
+    };
+
+    private async Task Toggle()
+    {
+        await _manualTooltip!.Toggle();
+    }
+
+}

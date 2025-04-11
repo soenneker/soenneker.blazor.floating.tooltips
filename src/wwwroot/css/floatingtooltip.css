@@ -1,0 +1,96 @@
+﻿/* ==== Base Floating Tooltip ==== */
+
+.floating-tooltip-anchor {
+    display: inline-block;
+    position: relative;
+}
+
+[id^="tooltip-"] {
+    position: absolute;
+    z-index: 9999;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    opacity: 0;
+    transform: translateY(-5px);
+    visibility: hidden;
+}
+
+    [id^="tooltip-"].visible {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+.floating-tooltip-arrow {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    transform: rotate(45deg);
+    z-index: 0;
+}
+
+/* ==== Interactive Tooltips ==== */
+.floating-tooltip.interactive {
+    pointer-events: auto;
+}
+
+/* ==== Themes (Scoped) ==== */
+
+.floating-tooltip--theme-dark {
+    background-color: rgba(30, 30, 30, 0.95);
+    color: #fff;
+}
+
+    .floating-tooltip--theme-dark .floating-tooltip-arrow {
+        background-color: rgba(30, 30, 30, 0.95);
+    }
+
+.floating-tooltip--theme-light {
+    background-color: #fff;
+    color: #111;
+    border: 1px solid #ccc;
+}
+
+    .floating-tooltip--theme-light .floating-tooltip-arrow {
+        background-color: #fff;
+    }
+
+.floating-tooltip--theme-info {
+    background-color: #007bff;
+    color: #fff;
+}
+
+    .floating-tooltip--theme-info .floating-tooltip-arrow {
+        background-color: #007bff;
+    }
+
+.floating-tooltip--theme-success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+    .floating-tooltip--theme-success .floating-tooltip-arrow {
+        background-color: #28a745;
+    }
+
+.floating-tooltip--theme-warning {
+    background-color: #ffc107;
+    color: #111;
+}
+
+    .floating-tooltip--theme-warning .floating-tooltip-arrow {
+        background-color: #ffc107;
+    }
+
+.floating-tooltip--theme-error {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+    .floating-tooltip--theme-error .floating-tooltip-arrow {
+        background-color: #dc3545;
+    }
