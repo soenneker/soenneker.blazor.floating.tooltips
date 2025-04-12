@@ -15,7 +15,7 @@ public interface IFloatingTooltip : IAsyncDisposable
     /// <summary>
     /// The tooltip content as a plain string. Mutually exclusive with <see cref="SetTooltipContent"/>.
     /// </summary>
-    string? ContentText { get; set; }
+    string? Text { get; set; }
 
     /// <summary>
     /// The unique identifier used internally for tooltip registration and DOM references.

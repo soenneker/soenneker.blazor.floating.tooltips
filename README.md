@@ -44,7 +44,7 @@ services.AddFloatingTooltipAsScoped();
 Basic example with plain string content:
 
 ```razor
-<FloatingTooltip ContentText="Hello tooltip!">
+<FloatingTooltip Text="Hello tooltip!">
     <button class="btn">Hover me</button>
 </FloatingTooltip>
 ```
@@ -53,7 +53,7 @@ With full options and event handling:
 
 ```razor
 <FloatingTooltip
-                 ContentText="This is an interactive tooltip"
+                 Text="This is an interactive tooltip"
                  Placement="FloatingTooltipPlacement.Top"
                  Animate="true"
                  ShowArrow="true"
@@ -70,7 +70,7 @@ With full options and event handling:
 }
 ```
 
-Using `TooltipContent` instead of `ContentText`:
+Using `TooltipContent` instead of `Text`:
 
 ```razor
 <FloatingTooltip>

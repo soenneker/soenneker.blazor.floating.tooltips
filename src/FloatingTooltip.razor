@@ -39,7 +39,7 @@
     private RenderFragment? _tooltipContent;
 
     [Parameter]
-    public string? ContentText { get; set; }
+    public string? Text { get; set; }
 
     [Parameter]
     public string Id { get; set; } = Guid.NewGuid().ToString();
@@ -107,7 +107,7 @@
     private DotNetObjectReference<FloatingTooltip>? _dotNetRef;
 
     private RenderFragment? ResolvedContent =>
-        _tooltipContent ?? (ContentText.HasContent() ? (RenderFragment) (__builder => __builder.AddContent(0, ContentText)) : null);
+        _tooltipContent ?? (Text.HasContent() ? (RenderFragment) (__builder => __builder.AddContent(0, Text)) : null);
 
     [JSInvokable]
     public async Task InvokeOnShow()
@@ -161,9 +161,9 @@
 
     protected override void OnParametersSet()
     {
-        if (_tooltipContent != null && ContentText.HasContent())
+        if (_tooltipContent != null && Text.HasContent())
         {
-            throw new InvalidOperationException("Both TooltipContent and ContentText were set. Use only one.");
+            throw new InvalidOperationException("Both TooltipContent and Text were set. Use only one.");
         }
     }
 

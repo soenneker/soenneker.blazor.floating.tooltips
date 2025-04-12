@@ -47,7 +47,7 @@
         <div class="col">
             <div class="card shadow-sm p-3">
                 <h5>🎯 Basic Text Tooltip</h5>
-                <FloatingTooltip ContentText="Hello there 👋">
+                <FloatingTooltip Text="Hello there 👋">
                     <button class="btn btn-primary">Hover me</button>
                 </FloatingTooltip>
             </div>
@@ -71,7 +71,7 @@
         <div class="col">
             <div class="card shadow-sm p-3">
                 <h5>⏱️ Delayed Tooltip</h5>
-                <FloatingTooltip ContentText="Delayed and animated tooltip" Options="@_delayedOptions">
+                <FloatingTooltip Text="Delayed and animated tooltip" Options="@_delayedOptions">
                     <button class="btn btn-outline-secondary">Delayed Tooltip</button>
                 </FloatingTooltip>
             </div>
@@ -92,7 +92,7 @@
         <div class="col">
             <div class="card shadow-sm p-3">
                 <h5>❌ Disabled Tooltip</h5>
-                <FloatingTooltip ContentText="You won't see me 😢" Options="@_disabledOptions">
+                <FloatingTooltip Text="You won't see me 😢" Options="@_disabledOptions">
                     <button class="btn btn-danger" disabled>Disabled Tooltip</button>
                 </FloatingTooltip>
             </div>
@@ -101,7 +101,7 @@
         <div class="col">
             <div class="card shadow-sm p-3">
                 <h5>🎛️ Manual Trigger</h5>
-                <FloatingTooltip ManualTrigger="true" @ref="_manualTooltip" ContentText="Controlled manually.">
+                <FloatingTooltip ManualTrigger="true" @ref="_manualTooltip" Text="Controlled manually.">
                     <button class="btn btn-outline-primary" @onclick="Toggle">Toggle Tooltip</button>
                 </FloatingTooltip>
             </div>
@@ -127,7 +127,7 @@
         <div class="col">
             <div class="card shadow-sm p-3">
                 <h5>📋 OnShow / OnHide Logging</h5>
-                <FloatingTooltip ContentText="I'm logging to the console!" OnShow="OnShow" OnHide="OnHide">
+                <FloatingTooltip Text="I'm logging to the console!" OnShow="OnShow" OnHide="OnHide">
                     <button class="btn btn-outline-warning">Hover with Logging</button>
                 </FloatingTooltip>
             </div>
@@ -140,7 +140,7 @@
     <div class="d-flex flex-wrap gap-2">
         @foreach (FloatingTooltipPlacement placement in FloatingTooltipPlacement.List())
         {
-            <FloatingTooltip ContentText=@($"Placed: {placement.Value}") Placement="@placement">
+            <FloatingTooltip Text=@($"Placed: {placement.Value}") Placement="@placement">
                 <button class="btn btn-outline-dark">@placement.Value</button>
             </FloatingTooltip>
         }
@@ -152,7 +152,7 @@
     <div class="d-flex flex-wrap gap-2">
         @foreach (FloatingTooltipTheme theme in FloatingTooltipTheme.List())
         {
-            <FloatingTooltip ContentText=@($"Theme: {theme.Value}") Theme="@theme">
+            <FloatingTooltip Text=@($"Theme: {theme.Value}") Theme="@theme">
                 <button class="btn btn-outline-secondary">@theme.Value</button>
             </FloatingTooltip>
         }
@@ -161,7 +161,7 @@
     <hr class="my-5" />
 
     <h3 class="mb-3">🧾 Max Width & Wrapping</h3>
-    <FloatingTooltip MaxWidth="150" ContentText="This is a long tooltip with a max width, which will wrap nicely instead of going off-screen.">
+    <FloatingTooltip MaxWidth="150" Text="This is a long tooltip with a max width, which will wrap nicely instead of going off-screen.">
         <button class="btn btn-outline-info">Wrapped Tooltip</button>
     </FloatingTooltip>
 </div>
