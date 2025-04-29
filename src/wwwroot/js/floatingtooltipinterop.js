@@ -13,10 +13,11 @@
         const tooltipId = "tooltip-" + id;
 
         const anchor = document.getElementById(anchorId);
+        const reference = anchor?.firstElementChild || anchor;
         const tooltip = document.getElementById(tooltipId);
 
-        if (!anchor || !tooltip) {
-            console.warn('Anchor or tooltip element not found.', { anchorId, tooltipId });
+        if (!reference || !tooltip) {
+            console.warn('Reference or tooltip element not found.', { anchorId, tooltipId });
             return;
         }
 
@@ -36,8 +37,13 @@
         if (options.interactive)
             tooltip.classList.add("interactive");
 
-        if (options.maxWidth && options.maxWidth > 0)
-            tooltip.style.maxWidth = `${options.maxWidth}px`;
+        if (options.maxWidth && options.maxWidth > 0) {
+            const textEl = tooltip.querySelector(".tooltip-text");
+
+            if (textEl && options.maxWidth && options.maxWidth > 0) {
+                textEl.style.maxWidth = `${options.maxWidth}px`;
+            }
+        }
 
         tooltip.dataset.placement = options.placement;
 
@@ -59,13 +65,13 @@
             const showTimeout = setTimeout(() => {
                 tooltip.classList.add("visible");
 
-                cleanup = window.FloatingUIDOM.autoUpdate(anchor, tooltip, async () => {
+                cleanup = window.FloatingUIDOM.autoUpdate(reference, tooltip, async () => {
                     try {
                         const {
                             x, y,
                             middlewareData,
                             placement: resolvedPlacement
-                        } = await window.FloatingUIDOM.computePosition(anchor, tooltip, {
+                        } = await window.FloatingUIDOM.computePosition(reference, tooltip, {
                             placement: options.placement,
                             middleware: [
                                 window.FloatingUIDOM.offset(10),
@@ -83,7 +89,6 @@
 
                         const [basePlacement, alignment = "center"] = resolvedPlacement.split("-");
 
-                        // ✨ Apply alignment class to tooltip
                         tooltip.classList.remove("tooltip-align-start", "tooltip-align-end", "tooltip-align-center");
                         tooltip.classList.add(`tooltip-align-${alignment}`);
 
@@ -149,7 +154,6 @@
                                     hideTooltip();
                                 }
                             };
-
                             tooltip.addEventListener("mouseleave", leaveFromTooltip, { once: true });
                         } else {
                             hideTooltip();
