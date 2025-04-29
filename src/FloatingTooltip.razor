@@ -107,7 +107,17 @@
     private DotNetObjectReference<FloatingTooltip>? _dotNetRef;
 
     private RenderFragment? ResolvedContent =>
-        _tooltipContent ?? (Text.HasContent() ? (RenderFragment) (__builder => __builder.AddContent(0, Text)) : null);
+        _tooltipContent != null
+            ? _tooltipContent
+            : (Text.HasContent()
+                ? (__builder =>
+                {
+                    __builder.OpenElement(0, "div");
+                    __builder.AddAttribute(1, "class", "tooltip-text");
+                    __builder.AddContent(2, Text);
+                    __builder.CloseElement();
+                })
+                : null);
 
     [JSInvokable]
     public async Task InvokeOnShow()

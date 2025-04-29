@@ -11,13 +11,20 @@
     z-index: 9999;
     padding: 6px 12px;
     border-radius: 4px;
-    font-size: 14px;
     pointer-events: none;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transition: opacity 0.2s ease, transform 0.2s ease;
     opacity: 0;
     transform: translateY(-5px);
     visibility: hidden;
+
+    /* Fix */
+    display: inline-block; /* or block, depending on layout */
+    width: auto;
+    min-width: max-content; /* ensures it respects wide children */
+    max-width: none; /* remove limit for interactive content */
+    white-space: normal;
+    overflow-wrap: break-word;
 }
 
     [id^="tooltip-"].visible {
@@ -95,3 +102,7 @@
     .floating-tooltip--theme-error .floating-tooltip-arrow {
         background-color: #dc3545;
     }
+
+.tooltip-text {
+    white-space: pre-line; /* turns \n into real line breaks */
+}

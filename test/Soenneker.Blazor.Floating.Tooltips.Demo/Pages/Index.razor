@@ -7,9 +7,9 @@
 @inject ILogger<Index> Logger
 @inject IFloatingTooltipInterop TooltipInterop
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm px-3 py-2 mb-4">
-    <div class="container-fluid">
-        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/">
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm px-3 py-2 mb-4" >
+    <div class="container-fluid" >
+        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/" >
             <img src="https://user-images.githubusercontent.com/4441470/224455560-91ed3ee7-f510-4041-a8d2-3fc093025112.png" alt="Logo" height="32" />
             Soenneker.Blazor.Floating.Tooltips
         </a>
@@ -17,9 +17,9 @@
         <a class="btn btn-sm btn-dark d-flex align-items-center gap-2"
            href="https://github.com/soenneker/soenneker.blazor.floating.tooltips"
            target="_blank"
-           role="button">
+           role="button" >
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
-                 class="bi bi-github" viewBox="0 0 16 16">
+                 class="bi bi-github" viewBox="0 0 16 16" >
                 <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38
                          0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52
                          -.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78
@@ -35,29 +35,28 @@
     </div>
 </nav>
 
-<div class="container py-5">
-    <div class="text-center mb-5">
+<div class="container py-5" >
+    <div class="text-center mb-5" >
         <img src="https://user-images.githubusercontent.com/4441470/224455560-91ed3ee7-f510-4041-a8d2-3fc093025112.png"
              alt="Soenneker Tooltip Logo" class="mb-3" style="max-width: 100px;" />
-        <h1 class="display-5 fw-bold">Soenneker.Blazor.Floating.Tooltips</h1>
-        <p class="lead">Elegant, powerful, and modern Blazor tooltips powered by <a href="https://floating-ui.com" target="_blank">Floating UI</a>.</p>
+        <h1 class="display-5 fw-bold" >Soenneker.Blazor.Floating.Tooltips</h1>
+        <p class="lead" >Elegant, powerful, and modern Blazor tooltips powered by <a href="https://floating-ui.com" target="_blank" >Floating UI</a>.</p>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-2 g-4">
-        <div class="col">
-            <div class="card shadow-sm p-3">
+    <div class="row row-cols-1 row-cols-md-2 g-4" >
+        <div class="col" >
+            <div class="card shadow-sm p-3" >
                 <h5>🎯 Basic Text Tooltip</h5>
-                <FloatingTooltip Text="Hello there 👋">
-                    <button class="btn btn-primary">Hover me</button>
+                <FloatingTooltip Text="Hello there 👋" >
+                    <button class="btn btn-primary" >Hover me</button>
                 </FloatingTooltip>
             </div>
         </div>
-
-        <div class="col">
-            <div class="card shadow-sm p-3">
+        <div class="col" >
+            <div class="card shadow-sm p-3" >
                 <h5>🧠 Custom HTML Content</h5>
                 <FloatingTooltip>
-                    <span class="text-info" style="cursor: pointer;">ℹ️ Hover me for more details</span>
+                    <span class="text-info" style="cursor: pointer;" >ℹ️ Hover me for more details</span>
                     <TooltipContent>
                         <div>
                             <strong>Pro Tip:</strong><br />
@@ -68,20 +67,20 @@
             </div>
         </div>
 
-        <div class="col">
-            <div class="card shadow-sm p-3">
+        <div class="col" >
+            <div class="card shadow-sm p-3" >
                 <h5>⏱️ Delayed Tooltip</h5>
-                <FloatingTooltip Text="Delayed and animated tooltip" Options="@_delayedOptions">
-                    <button class="btn btn-outline-secondary">Delayed Tooltip</button>
+                <FloatingTooltip Text="Delayed and animated tooltip" Options="@_delayedOptions" >
+                    <button class="btn btn-outline-secondary" >Delayed Tooltip</button>
                 </FloatingTooltip>
             </div>
         </div>
 
-        <div class="col">
-            <div class="card shadow-sm p-3">
+        <div class="col" >
+            <div class="card shadow-sm p-3" >
                 <h5>📷 Tooltip with Image</h5>
                 <FloatingTooltip>
-                    <span style="cursor: pointer;">🖼 Hover to preview image</span>
+                    <span style="cursor: pointer;" >🖼 Hover to preview image</span>
                     <TooltipContent>
                         <img src="https://picsum.photos/100/60" alt="Preview" class="rounded" />
                     </TooltipContent>
@@ -89,46 +88,46 @@
             </div>
         </div>
 
-        <div class="col">
-            <div class="card shadow-sm p-3">
+        <div class="col" >
+            <div class="card shadow-sm p-3" >
                 <h5>❌ Disabled Tooltip</h5>
-                <FloatingTooltip Text="You won't see me 😢" Options="@_disabledOptions">
-                    <button class="btn btn-danger" disabled>Disabled Tooltip</button>
+                <FloatingTooltip Text="You won't see me 😢" Options="@_disabledOptions" >
+                    <button class="btn btn-danger" disabled >Disabled Tooltip</button>
                 </FloatingTooltip>
             </div>
         </div>
 
-        <div class="col">
-            <div class="card shadow-sm p-3">
+        <div class="col" >
+            <div class="card shadow-sm p-3" >
                 <h5>🎛️ Manual Trigger</h5>
-                <FloatingTooltip ManualTrigger="true" @ref="_manualTooltip" Text="Controlled manually.">
-                    <button class="btn btn-outline-primary" @onclick="Toggle">Toggle Tooltip</button>
+                <FloatingTooltip ManualTrigger="true" @ref="_manualTooltip" Text="Controlled manually." >
+                    <button class="btn btn-outline-primary" @onclick="Toggle" >Toggle Tooltip</button>
                 </FloatingTooltip>
             </div>
         </div>
 
-        <div class="col">
-            <div class="card shadow-sm p-3">
+        <div class="col" >
+            <div class="card shadow-sm p-3" >
                 <h5>🖱️ Interactive Tooltip</h5>
-                <FloatingTooltip Interactive="true">
-                    <span style="cursor: pointer;" class="text-primary">Hover for interactive tooltip</span>
+                <FloatingTooltip Interactive="true" >
+                    <span style="cursor: pointer;" class="text-primary" >Hover for interactive tooltip</span>
                     <TooltipContent>
-                        <div>
-                            Click this:
-                            <button class="btn btn-sm btn-success ms-2" @onclick="LogTooltipClick">
+                        <div class="d-flex flex-column align-items-center p-2">
+                            <div class="mb-2">Click this:</div>
+                            <Button Color="Color.Primary" @onclick="LogTooltipClick">
                                 Inside
-                            </button>
+                            </Button>
                         </div>
                     </TooltipContent>
                 </FloatingTooltip>
             </div>
         </div>
 
-        <div class="col">
-            <div class="card shadow-sm p-3">
+        <div class="col" >
+            <div class="card shadow-sm p-3" >
                 <h5>📋 OnShow / OnHide Logging</h5>
-                <FloatingTooltip Text="I'm logging to the console!" OnShow="OnShow" OnHide="OnHide">
-                    <button class="btn btn-outline-warning">Hover with Logging</button>
+                <FloatingTooltip Text="I'm logging to the console!" OnShow="OnShow" OnHide="OnHide" >
+                    <button class="btn btn-outline-warning" >Hover with Logging</button>
                 </FloatingTooltip>
             </div>
         </div>
@@ -136,35 +135,53 @@
 
     <hr class="my-5" />
 
-    <h3 class="mb-3">📐 Placement Examples</h3>
-    <div class="d-flex flex-wrap gap-2">
+    <h3 class="mb-3" >📐 Placement Examples</h3>
+    <div class="d-flex flex-wrap gap-2" >
         @foreach (FloatingTooltipPlacement placement in FloatingTooltipPlacement.List())
         {
-            <FloatingTooltip Text=@($"Placed: {placement.Value}") Placement="@placement">
-                <button class="btn btn-outline-dark">@placement.Value</button>
+            <FloatingTooltip Text=@($"Placed: {placement.Value}") Placement="@placement" >
+                <button class="btn btn-outline-dark" >@placement.Value</button>
             </FloatingTooltip>
         }
     </div>
 
     <hr class="my-5" />
 
-    <h3 class="mb-3">🎨 Theme Variations</h3>
-    <div class="d-flex flex-wrap gap-2">
+    <h3 class="mb-3" >🎨 Theme Variations</h3>
+    <div class="d-flex flex-wrap gap-2" >
         @foreach (FloatingTooltipTheme theme in FloatingTooltipTheme.List())
         {
-            <FloatingTooltip Text=@($"Theme: {theme.Value}") Theme="@theme">
-                <button class="btn btn-outline-secondary">@theme.Value</button>
+            <FloatingTooltip Text=@($"Theme: {theme.Value}") Theme="@theme" >
+                <button class="btn btn-outline-secondary" >@theme.Value</button>
             </FloatingTooltip>
         }
     </div>
 
     <hr class="my-5" />
 
-    <h3 class="mb-3">🧾 Max Width & Wrapping</h3>
-    <FloatingTooltip MaxWidth="150" Text="This is a long tooltip with a max width, which will wrap nicely instead of going off-screen.">
-        <button class="btn btn-outline-info">Wrapped Tooltip</button>
+    <h3 class="mb-3" >🧾 Max Width & Wrapping</h3>
+    <FloatingTooltip MaxWidth="150" Text="This is a long tooltip with a max width, which will wrap nicely instead of going off-screen." >
+        <button class="btn btn-outline-info" >Wrapped Tooltip</button>
     </FloatingTooltip>
 </div>
+
+<Container>
+    <h3>Constraining</h3>
+    <Row>
+        <Column ColumnSize="ColumnSize.Is1" >
+        <Card Margin="Margin.Is1.OnDesktop.Is1.OnTablet" >
+            <FloatingTooltip Text="@($"This is a long line, and isn't constrained by parent elements. The next line is below this one: \n New line")" >
+                <CardBody TextAlignment="TextAlignment.Center" >
+                    <CardTitle Size="4" class="text-muted" >Card Title</CardTitle>
+                    <Heading Size="HeadingSize.Is3" Padding="Padding.Is1.OnY" Margin="Margin.Is2.OnY" >
+                        This is a heading
+                    </Heading>
+                </CardBody>
+            </FloatingTooltip>
+        </Card>
+        </Column>
+    </Row>
+</Container>
 
 @code {
     private FloatingTooltip? _manualTooltip;
