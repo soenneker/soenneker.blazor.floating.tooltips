@@ -13,12 +13,16 @@
         const tooltipId = "tooltip-" + id;
 
         const anchor = document.getElementById(anchorId);
-        const reference = anchor?.firstElementChild || anchor;
+        const reference = anchor.querySelector("[data-tooltip-anchor]") ?? anchor.firstElementChild ?? anchor;
         const tooltip = document.getElementById(tooltipId);
 
         if (!reference || !tooltip) {
             console.warn('Reference or tooltip element not found.', { anchorId, tooltipId });
             return;
+        }
+
+        if (reference === anchor && anchor.children.length > 1) {
+            console.warn(`FloatingTooltip [${id}] is attaching to anchor because multiple children were found and no [data-tooltip-anchor] was set.`);
         }
 
         if (!options?.enabled) {
@@ -165,12 +169,12 @@
                 hideTooltip();
             };
 
-            anchor.addEventListener('mouseenter', onEnter);
-            anchor.addEventListener('mouseleave', onLeave);
+            reference.addEventListener('mouseenter', onEnter);
+            reference.addEventListener('mouseleave', onLeave);
 
             this.cleanups.set(anchorId, () => {
-                anchor.removeEventListener('mouseenter', onEnter);
-                anchor.removeEventListener('mouseleave', onLeave);
+                reference.removeEventListener('mouseenter', onEnter);
+                reference.removeEventListener('mouseleave', onLeave);
                 clearTimeout(this._timeouts.get(`show-${id}`));
                 clearTimeout(this._timeouts.get(`hide-${id}`));
                 if (cleanup) {

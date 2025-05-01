@@ -112,9 +112,9 @@
                 <FloatingTooltip Interactive="true" >
                     <span style="cursor: pointer;" class="text-primary" >Hover for interactive tooltip</span>
                     <TooltipContent>
-                        <div class="d-flex flex-column align-items-center p-2">
-                            <div class="mb-2">Click this:</div>
-                            <Button Color="Color.Primary" @onclick="LogTooltipClick">
+                        <div class="d-flex flex-column align-items-center p-2" >
+                            <div class="mb-2" >Click this:</div>
+                            <Button Color="Color.Primary" @onclick="LogTooltipClick" >
                                 Inside
                             </Button>
                         </div>
@@ -139,7 +139,7 @@
     <div class="d-flex flex-wrap gap-2" >
         @foreach (FloatingTooltipPlacement placement in FloatingTooltipPlacement.List())
         {
-            <FloatingTooltip Text=@($"Placed: {placement.Value}") Placement="@placement">
+            <FloatingTooltip Text=@($"Placed: {placement.Value}") Placement="@placement" >
                 <button class="btn btn-outline-dark" >@placement.Value</button>
             </FloatingTooltip>
         }
@@ -169,16 +169,27 @@
     <h3>Constraining</h3>
     <Row>
         <Column ColumnSize="ColumnSize.Is1" >
-        <Card Margin="Margin.Is1.OnDesktop.Is1.OnTablet" >
-            <FloatingTooltip Text="@($"This is a long line, and isn't constrained by parent elements. The next line is below this one: \n New line")" >
-                <CardBody TextAlignment="TextAlignment.Center" >
-                    <CardTitle Size="4" class="text-muted" >Card Title</CardTitle>
-                    <Heading Size="HeadingSize.Is3" Padding="Padding.Is1.OnY" Margin="Margin.Is2.OnY" >
-                        This is a heading
-                    </Heading>
-                </CardBody>
-            </FloatingTooltip>
-        </Card>
+            <Card Margin="Margin.Is1.OnDesktop.Is1.OnTablet" >
+                <FloatingTooltip Text="@($"This is a long line, and isn't constrained by parent elements. The next line is below this one: \n New line")" >
+                    <CardBody TextAlignment="TextAlignment.Center" >
+                        <CardTitle Size="4" class="text-muted" >Card Title</CardTitle>
+                        <Heading Size="HeadingSize.Is3" Padding="Padding.Is1.OnY" Margin="Margin.Is2.OnY" >
+                            This is a heading
+                        </Heading>
+                    </CardBody>
+                </FloatingTooltip>
+            </Card>
+        </Column>
+    </Row>
+
+    <Row>
+        <Column ColumnSize="ColumnSize.Is6">
+            <Field>
+                <FloatingTooltip Text="@("This should not constrain the input")" >
+                    <NumericPicker TValue="decimal?" Min="-100" Max="1000" EnableStep="false" CurrencySymbol="%" CurrencySymbolPlacement="CurrencySymbolPlacement.Suffix" Size="Size.Small" />
+                    <FieldLabel>Numeric Picker</FieldLabel>
+                </FloatingTooltip>
+            </Field>
         </Column>
     </Row>
 </Container>

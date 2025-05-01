@@ -1,8 +1,7 @@
 ﻿/* ==== Base Floating Tooltip ==== */
 
 .floating-tooltip-anchor {
-    display: inline-block;
-    position: relative;
+    display: content
 }
 
 [id^="tooltip-"] {
