@@ -139,7 +139,7 @@
     <div class="d-flex flex-wrap gap-2" >
         @foreach (FloatingTooltipPlacement placement in FloatingTooltipPlacement.List())
         {
-            <FloatingTooltip Text=@($"Placed: {placement.Value}") Placement="@placement" >
+            <FloatingTooltip Text=@($"Placed: {placement.Value}") Placement="@placement">
                 <button class="btn btn-outline-dark" >@placement.Value</button>
             </FloatingTooltip>
         }

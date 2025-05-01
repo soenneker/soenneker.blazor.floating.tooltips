@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System;
 using Microsoft.JSInterop;
 using Soenneker.Blazor.Floating.Tooltips.Options;
 using System.Threading;
@@ -9,7 +9,7 @@ namespace Soenneker.Blazor.Floating.Tooltips.Abstract;
 /// <summary>
 /// Provides JavaScript interop methods for initializing, controlling, and destroying Floating UI-based tooltips in a Blazor application.
 /// </summary>
-public interface IFloatingTooltipInterop
+public interface IFloatingTooltipInterop : IAsyncDisposable
 {
     /// <summary>
     /// Ensures all required JavaScript and CSS resources for Floating UI tooltips are loaded.

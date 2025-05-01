@@ -1,5 +1,4 @@
-﻿using Soenneker.Blazor.Floating.Tooltips.Abstract;
-using Soenneker.Tests.FixturedUnit;
+﻿using Soenneker.Tests.FixturedUnit;
 using Xunit;
 
 namespace Soenneker.Blazor.Floating.Tooltips.Tests;

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
+﻿using Microsoft.JSInterop;
 using Soenneker.Blazor.Floating.Tooltips.Abstract;
 using Soenneker.Blazor.Floating.Tooltips.Options;
 using Soenneker.Blazor.Utils.ResourceLoader.Abstract;
@@ -13,7 +12,7 @@ using System.Threading.Tasks;
 namespace Soenneker.Blazor.Floating.Tooltips;
 
 ///<inheritdoc cref="IFloatingTooltipInterop"/>
-public class FloatingTooltipInterop : IFloatingTooltipInterop
+public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
 {
     private readonly IResourceLoader _resourceLoader;
     private readonly AsyncSingleton _scriptInitializer;

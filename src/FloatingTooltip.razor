@@ -42,7 +42,7 @@
     public string? Text { get; set; }
 
     [Parameter]
-    public string Id { get; set; } = Guid.NewGuid().ToString();
+    public string Id { get; set; } = "ft-" + Guid.NewGuid();
 
     [Parameter]
     public EventCallback OnShow { get; set; }
