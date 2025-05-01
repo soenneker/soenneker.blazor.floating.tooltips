@@ -13,16 +13,19 @@
         const tooltipId = "tooltip-" + id;
 
         const anchor = document.getElementById(anchorId);
-        const reference = anchor.querySelector("[data-tooltip-anchor]") ?? anchor.firstElementChild ?? anchor;
+        let reference = anchor.querySelector("[data-tooltip-anchor]") ?? anchor.firstElementChild;
+
+        if (!reference) {
+            // Fallback to anchor itself and ensure it has a layout box
+            reference = anchor;
+            anchor.style.display = "inline-block";
+        }
+
         const tooltip = document.getElementById(tooltipId);
 
         if (!reference || !tooltip) {
             console.warn('Reference or tooltip element not found.', { anchorId, tooltipId });
             return;
-        }
-
-        if (reference === anchor && anchor.children.length > 1) {
-            console.warn(`FloatingTooltip [${id}] is attaching to anchor because multiple children were found and no [data-tooltip-anchor] was set.`);
         }
 
         if (!options?.enabled) {
