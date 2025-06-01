@@ -1,7 +1,7 @@
 ﻿/* ==== Base Floating Tooltip ==== */
 
 .floating-tooltip-anchor {
-    display: contents;
+
 }
 
 [id^="tooltip-"] {
@@ -15,12 +15,10 @@
     opacity: 0;
     transform: translateY(-5px);
     visibility: hidden;
-
     /* Fix */
-    display: inline-block; /* or block, depending on layout */
-    width: auto;
-    min-width: max-content; /* ensures it respects wide children */
-    max-width: none; /* remove limit for interactive content */
+    display: block; /* or block, depending on layout */
+    width: max-content;
+    max-width: 90vw;
     white-space: normal;
     overflow-wrap: break-word;
 }
