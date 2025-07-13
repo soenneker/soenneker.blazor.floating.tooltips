@@ -50,5 +50,5 @@ public interface IFloatingTooltipInterop : IAsyncDisposable
     /// <summary>
     /// Disposes internal state and JavaScript module references.
     /// </summary>
-    ValueTask DisposeAsync();
+    new ValueTask DisposeAsync();
 }
