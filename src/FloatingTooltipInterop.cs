@@ -27,23 +27,27 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
 
         _scriptInitializer = new AsyncSingleton(async (token, arg) =>
         {
-            var useCdn = (bool)arg[0];
+            var useCdn = (bool) arg[0];
 
             if (useCdn)
             {
-                await _resourceLoader.LoadScriptAndWaitForVariable("https://cdn.jsdelivr.net/npm/@floating-ui/core@1.6.9/dist/floating-ui.core.umd.min.js",
-                        "FloatingUICore", cancellationToken: token)
-                    .NoSync();
+                await _resourceLoader.LoadScriptAndWaitForVariable("https://cdn.jsdelivr.net/npm/@floating-ui/core@1.7.2/dist/floating-ui.core.umd.min.js",
+                                         "FloatingUICore", "sha256-OhWDdFHrIg8eNZaNgWL2ax7tjKNFOBQq3WErqxfHdlQ=", cancellationToken: token)
+                                     .NoSync();
 
-                await _resourceLoader.LoadScriptAndWaitForVariable("https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.6.13/dist/floating-ui.dom.umd.min.js",
-                        "FloatingUIDOM", cancellationToken: token)
-                    .NoSync();
+                await _resourceLoader.LoadScriptAndWaitForVariable("https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.7.2/dist/floating-ui.dom.umd.min.js",
+                                         "FloatingUIDOM", "sha256-cycZmidLw+l9uWDr4bUhL26YMJg1G6aM0AnUEPG9sME=", cancellationToken: token)
+                                     .NoSync();
             }
             else
             {
-                await _resourceLoader.LoadScriptAndWaitForVariable("_content/Soenneker.Blazor.Floating.Tooltips/js/floating-ui.dom.umd.min.js",
-                        "FloatingUIDOM", cancellationToken: token)
-                    .NoSync();
+                await _resourceLoader.LoadScriptAndWaitForVariable("_content/Soenneker.Blazor.Floating.Tooltips/js/floating-ui.core.umd.min.js",
+                                         "FloatingUIDOM", cancellationToken: token)
+                                     .NoSync();
+
+                await _resourceLoader.LoadScriptAndWaitForVariable("_content/Soenneker.Blazor.Floating.Tooltips/js/floating-ui.dom.umd.min.js", "FloatingUIDOM",
+                                         cancellationToken: token)
+                                     .NoSync();
             }
 
             await _resourceLoader.LoadStyle("_content/Soenneker.Blazor.Floating.Tooltips/css/floatingtooltip.css", cancellationToken: token).NoSync();

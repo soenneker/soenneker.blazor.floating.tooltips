@@ -19,7 +19,7 @@
 
     @if (_initialized)
     {
-        <div id="@($"tooltip-{Id}")" @attributes="TooltipAttributes" >
+        <div id="@($"tooltip-{Id}")" @attributes="TooltipAttributes" on-clikClick="" >
             @ResolvedContent
         </div>
     }
