@@ -2,14 +2,16 @@
 @using Microsoft.JSInterop
 @using Soenneker.Blazor.Floating.Tooltips.Abstract
 @using Soenneker.Blazor.Floating.Tooltips.Options
-@using Soenneker.Blazor.Floating.Tooltips.Enums
-@using Soenneker.Extensions.String
-@using Soenneker.Blazor.Extensions.EventCallback
 @using Soenneker.Extensions.Task
 @using Soenneker.Extensions.ValueTask
+@using Soenneker.Blazor.Extensions.EventCallback
+@using Soenneker.Blazor.Floating.Tooltips.Enums
+@using Soenneker.Extensions.CancellationTokens
+@using Soenneker.Extensions.String
 
 @inject IFloatingTooltipInterop TooltipInterop
 
+@inherits Soenneker.Quark.Components.Cancellable.CancellableComponent
 @implements IFloatingTooltip
 
 <CascadingValue Value="this" >
@@ -103,7 +105,6 @@
 
     private bool _initialized;
     private bool _createPending;
-    private readonly CancellationTokenSource _disposeCts = new();
     private DotNetObjectReference<FloatingTooltip>? _dotNetRef;
 
     private RenderFragment? ResolvedContent =>
@@ -135,7 +136,7 @@
     {
         if (firstRender)
         {
-            await TooltipInterop.Initialize(MergedOptions.UseCdn, _disposeCts.Token).NoSync();
+            await TooltipInterop.Initialize(MergedOptions.UseCdn, CancellationToken.None).NoSync();
             _dotNetRef = DotNetObjectReference.Create(this);
             _initialized = true;
             _createPending = true;
@@ -146,27 +147,42 @@
         if (_createPending)
         {
             _createPending = false;
-            await TooltipInterop.Create(Id, MergedOptions, _disposeCts.Token).NoSync();
+            await TooltipInterop.Create(Id, MergedOptions, CancellationToken.None).NoSync();
             await TooltipInterop.SetCallbacks(Id, _dotNetRef!).NoSync();
         }
     }
 
-    public async ValueTask Show()
+    public async ValueTask Show(CancellationToken cancellationToken = default)
     {
-        if (_initialized)
-            await TooltipInterop.Show(Id);
+        if (!_initialized)
+            return;
+
+        CancellationToken linked = CancellationToken.Link(cancellationToken, out CancellationTokenSource? cts);
+
+        using (cts)
+            await TooltipInterop.Show(Id, linked).NoSync();
     }
 
-    public async ValueTask Hide()
+    public async ValueTask Hide(CancellationToken cancellationToken = default)
     {
-        if (_initialized)
-            await TooltipInterop.Hide(Id);
+        if (!_initialized)
+            return;
+
+        CancellationToken linked = CancellationToken.Link(cancellationToken, out CancellationTokenSource? cts);
+
+        using (cts)
+            await TooltipInterop.Hide(Id, linked).NoSync();
     }
 
-    public async ValueTask Toggle()
+    public async ValueTask Toggle(CancellationToken cancellationToken = default)
     {
-        if (_initialized)
-            await TooltipInterop.Toggle(Id);
+        if (!_initialized)
+            return;
+
+        CancellationToken linked = CancellationToken.Link(cancellationToken, out CancellationTokenSource? cts);
+
+        using (cts)
+            await TooltipInterop.Toggle(Id, linked).NoSync();
     }
 
     protected override void OnParametersSet()
@@ -182,14 +198,12 @@
         _tooltipContent = content;
     }
 
-    public async ValueTask DisposeAsync()
+    public override async ValueTask DisposeAsync()
     {
-        GC.SuppressFinalize(this);
+        await base.DisposeAsync().NoSync();
 
-        await _disposeCts.CancelAsync().NoSync();
         await TooltipInterop.Destroy(Id, CancellationToken.None);
-
         _dotNetRef?.Dispose();
-        _disposeCts.Dispose();
     }
+
 }

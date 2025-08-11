@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Soenneker.Blazor.Floating.Tooltips.Enums;
 using Soenneker.Blazor.Floating.Tooltips.Options;
+using Soenneker.Quark.Components.Cancellable.Abstract;
 
 namespace Soenneker.Blazor.Floating.Tooltips.Abstract;
 
 /// <summary>
 /// Represents a floating tooltip component instance with customizable appearance, behavior, and lifecycle methods.
 /// </summary>
-public interface IFloatingTooltip : IAsyncDisposable
+public interface IFloatingTooltip : ICancellableComponent
 {
     /// <summary>
     /// The tooltip content as a plain string. Mutually exclusive with <see cref="SetTooltipContent"/>.
@@ -116,15 +118,15 @@ public interface IFloatingTooltip : IAsyncDisposable
     /// <summary>
     /// Shows the tooltip manually. Only applicable if <see cref="ManualTrigger"/> is <c>true</c>.
     /// </summary>
-    ValueTask Show();
+    ValueTask Show(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Hides the tooltip manually. Only applicable if <see cref="ManualTrigger"/> is <c>true</c>.
     /// </summary>
-    ValueTask Hide();
+    ValueTask Hide(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Toggles the tooltip visibility manually. Only applicable if <see cref="ManualTrigger"/> is <c>true</c>.
     /// </summary>
-    ValueTask Toggle();
+    ValueTask Toggle(CancellationToken cancellationToken = default);
 }
