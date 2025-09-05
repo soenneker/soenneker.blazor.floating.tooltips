@@ -205,7 +205,7 @@
         try
         {
             if (_initialized)
-                await TooltipInterop.Destroy(Id, CancellationToken.None).ConfigureAwait(false);
+                await TooltipInterop.Destroy(Id, CancellationToken.None);
         }
         catch (JSDisconnectedException) { /* circuit already gone; ignore */ }
         catch (ObjectDisposedException) { /* runtime disposed; ignore */ }
