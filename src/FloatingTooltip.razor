@@ -136,7 +136,7 @@
     {
         if (firstRender)
         {
-            await TooltipInterop.Initialize(MergedOptions.UseCdn, CancellationToken.None).NoSync();
+            await TooltipInterop.Initialize(MergedOptions.UseCdn, CancellationToken.None);
             _dotNetRef = DotNetObjectReference.Create(this);
             _initialized = true;
             _createPending = true;
@@ -147,8 +147,8 @@
         if (_createPending)
         {
             _createPending = false;
-            await TooltipInterop.Create(Id, MergedOptions, CancellationToken.None).NoSync();
-            await TooltipInterop.SetCallbacks(Id, _dotNetRef!).NoSync();
+            await TooltipInterop.Create(Id, MergedOptions, CancellationToken.None);
+            await TooltipInterop.SetCallbacks(Id, _dotNetRef!);
         }
     }
 
@@ -202,7 +202,14 @@
     {
         await base.DisposeAsync().NoSync();
 
-        await TooltipInterop.Destroy(Id, CancellationToken.None);
+        try
+        {
+            if (_initialized)
+                await TooltipInterop.Destroy(Id, CancellationToken.None).ConfigureAwait(false);
+        }
+        catch (JSDisconnectedException) { /* circuit already gone; ignore */ }
+        catch (ObjectDisposedException) { /* runtime disposed; ignore */ }
+
         _dotNetRef?.Dispose();
     }
 
