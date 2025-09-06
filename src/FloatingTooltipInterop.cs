@@ -1,4 +1,4 @@
-﻿using Microsoft.JSInterop;
+using Microsoft.JSInterop;
 using Soenneker.Blazor.Floating.Tooltips.Abstract;
 using Soenneker.Blazor.Floating.Tooltips.Options;
 using Soenneker.Blazor.Utils.ResourceLoader.Abstract;
@@ -33,25 +33,25 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
             {
                 await _resourceLoader.LoadScriptAndWaitForVariable("https://cdn.jsdelivr.net/npm/@floating-ui/core@1.7.2/dist/floating-ui.core.umd.min.js",
                                          "FloatingUICore", "sha256-OhWDdFHrIg8eNZaNgWL2ax7tjKNFOBQq3WErqxfHdlQ=", cancellationToken: token)
-                                     .NoSync();
+                                     ;
 
                 await _resourceLoader.LoadScriptAndWaitForVariable("https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.7.2/dist/floating-ui.dom.umd.min.js",
                                          "FloatingUIDOM", "sha256-cycZmidLw+l9uWDr4bUhL26YMJg1G6aM0AnUEPG9sME=", cancellationToken: token)
-                                     .NoSync();
+                                     ;
             }
             else
             {
                 await _resourceLoader.LoadScriptAndWaitForVariable("_content/Soenneker.Blazor.Floating.Tooltips/js/floating-ui.core.umd.min.js",
                                          "FloatingUIDOM", cancellationToken: token)
-                                     .NoSync();
+                                     ;
 
                 await _resourceLoader.LoadScriptAndWaitForVariable("_content/Soenneker.Blazor.Floating.Tooltips/js/floating-ui.dom.umd.min.js", "FloatingUIDOM",
                                          cancellationToken: token)
-                                     .NoSync();
+                                     ;
             }
 
-            await _resourceLoader.LoadStyle("_content/Soenneker.Blazor.Floating.Tooltips/css/floatingtooltip.css", cancellationToken: token).NoSync();
-            await _resourceLoader.ImportModuleAndWaitUntilAvailable(_module, _moduleName, 100, token).NoSync();
+            await _resourceLoader.LoadStyle("_content/Soenneker.Blazor.Floating.Tooltips/css/floatingtooltip.css", cancellationToken: token);
+            await _resourceLoader.ImportModuleAndWaitUntilAvailable(_module, _moduleName, 100, token);
 
             return new object();
         });
@@ -64,11 +64,11 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
 
     public async ValueTask Create(string id, FloatingTooltipOptions options, CancellationToken cancellationToken = default)
     {
-        await _scriptInitializer.Init(cancellationToken, options.UseCdn).NoSync();
+        await _scriptInitializer.Init(cancellationToken, options.UseCdn);
 
         string json = JsonUtil.Serialize(options)!;
 
-        await _jSRuntime.InvokeVoidAsync($"{_moduleName}.create", cancellationToken, id, json).NoSync();
+        await _jSRuntime.InvokeVoidAsync($"{_moduleName}.create", cancellationToken, id, json);
     }
 
     public ValueTask SetCallbacks(string id, DotNetObjectReference<FloatingTooltip> dotNetRef)
@@ -98,7 +98,7 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
 
     public async ValueTask DisposeAsync()
     {
-        await _resourceLoader.DisposeModule(_module).NoSync();
-        await _scriptInitializer.DisposeAsync().NoSync();
+        await _resourceLoader.DisposeModule(_module);
+        await _scriptInitializer.DisposeAsync();
     }
 }

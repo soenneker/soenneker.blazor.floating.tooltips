@@ -123,13 +123,13 @@
     [JSInvokable]
     public async Task InvokeOnShow()
     {
-        await OnShow.InvokeIfHasDelegate().NoSync();
+        await OnShow.InvokeIfHasDelegate();
     }
 
     [JSInvokable]
     public async Task InvokeOnHide()
     {
-        await OnHide.InvokeIfHasDelegate().NoSync();
+        await OnHide.InvokeIfHasDelegate();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -160,7 +160,7 @@
         CancellationToken linked = CancellationToken.Link(cancellationToken, out CancellationTokenSource? cts);
 
         using (cts)
-            await TooltipInterop.Show(Id, linked).NoSync();
+            await TooltipInterop.Show(Id, linked);
     }
 
     public async ValueTask Hide(CancellationToken cancellationToken = default)
@@ -171,7 +171,7 @@
         CancellationToken linked = CancellationToken.Link(cancellationToken, out CancellationTokenSource? cts);
 
         using (cts)
-            await TooltipInterop.Hide(Id, linked).NoSync();
+            await TooltipInterop.Hide(Id, linked);
     }
 
     public async ValueTask Toggle(CancellationToken cancellationToken = default)
@@ -182,7 +182,7 @@
         CancellationToken linked = CancellationToken.Link(cancellationToken, out CancellationTokenSource? cts);
 
         using (cts)
-            await TooltipInterop.Toggle(Id, linked).NoSync();
+            await TooltipInterop.Toggle(Id, linked);
     }
 
     protected override void OnParametersSet()

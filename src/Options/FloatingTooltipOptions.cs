@@ -1,4 +1,4 @@
-﻿using Soenneker.Blazor.Floating.Tooltips.Enums;
+using Soenneker.Blazor.Floating.Tooltips.Enums;
 using System.Text.Json.Serialization;
 
 namespace Soenneker.Blazor.Floating.Tooltips.Options;

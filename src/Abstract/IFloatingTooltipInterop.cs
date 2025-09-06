@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.JSInterop;
 using Soenneker.Blazor.Floating.Tooltips.Options;
 using System.Threading;
