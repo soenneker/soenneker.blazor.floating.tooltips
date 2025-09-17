@@ -2,8 +2,6 @@
 @using Microsoft.JSInterop
 @using Soenneker.Blazor.Floating.Tooltips.Abstract
 @using Soenneker.Blazor.Floating.Tooltips.Options
-@using Soenneker.Extensions.Task
-@using Soenneker.Extensions.ValueTask
 @using Soenneker.Blazor.Extensions.EventCallback
 @using Soenneker.Blazor.Floating.Tooltips.Enums
 @using Soenneker.Extensions.CancellationTokens
@@ -11,7 +9,7 @@
 
 @inject IFloatingTooltipInterop TooltipInterop
 
-@inherits Soenneker.Quark.Components.Cancellable.CancellableComponent
+@inherits Soenneker.Quark.Components.Cancellable.CancellableElement
 @implements IFloatingTooltip
 
 <CascadingValue Value="this" >
@@ -34,17 +32,14 @@
 
     [Parameter]
     public Dictionary<string, object?>? AnchorAttributes { get; set; }
-
-    [Parameter]
-    public RenderFragment ChildContent { get; set; } = null!;
-
+    
     private RenderFragment? _tooltipContent;
 
     [Parameter]
     public string? Text { get; set; }
 
     [Parameter]
-    public string Id { get; set; } = "ft-" + Guid.NewGuid();
+    public override string? Id { get; set; } = "ft-" + Guid.NewGuid();
 
     [Parameter]
     public EventCallback OnShow { get; set; }
@@ -80,9 +75,6 @@
     public FloatingTooltipTheme? Theme { get; set; }
 
     [Parameter]
-    public int? MaxWidth { get; set; }
-
-    [Parameter]
     public bool? ManualTrigger { get; set; }
 
     [Parameter]
@@ -98,7 +90,6 @@
         Interactive = Interactive ?? Options.Interactive,
         Enabled = Enabled ?? Options.Enabled,
         Theme = Theme ?? Options.Theme,
-        MaxWidth = MaxWidth ?? Options.MaxWidth,
         ManualTrigger = ManualTrigger ?? Options.ManualTrigger,
         UseCdn = UseCdn ?? Options.UseCdn
     };

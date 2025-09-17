@@ -2,7 +2,6 @@ using Microsoft.JSInterop;
 using Soenneker.Blazor.Floating.Tooltips.Abstract;
 using Soenneker.Blazor.Floating.Tooltips.Options;
 using Soenneker.Blazor.Utils.ResourceLoader.Abstract;
-using Soenneker.Extensions.ValueTask;
 using Soenneker.Utils.AsyncSingleton;
 using Soenneker.Utils.Json;
 using System.Threading;

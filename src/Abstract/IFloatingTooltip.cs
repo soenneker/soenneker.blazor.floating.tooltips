@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,17 +11,12 @@ namespace Soenneker.Blazor.Floating.Tooltips.Abstract;
 /// <summary>
 /// Represents a floating tooltip component instance with customizable appearance, behavior, and lifecycle methods.
 /// </summary>
-public interface IFloatingTooltip : ICancellableComponent
+public interface IFloatingTooltip : ICancellableElement
 {
     /// <summary>
     /// The tooltip content as a plain string. Mutually exclusive with <see cref="SetTooltipContent"/>.
     /// </summary>
     string? Text { get; set; }
-
-    /// <summary>
-    /// The unique identifier used internally for tooltip registration and DOM references.
-    /// </summary>
-    string Id { get; set; }
 
     /// <summary>
     /// Optional parameters applied to the tooltip container.
@@ -33,11 +27,6 @@ public interface IFloatingTooltip : ICancellableComponent
     /// Optional parameters applied to the tooltip anchor element.
     /// </summary>
     Dictionary<string, object?>? AnchorAttributes { get; set; }
-
-    /// <summary>
-    /// The main child content that serves as the anchor target for the tooltip.
-    /// </summary>
-    RenderFragment ChildContent { get; set; }
 
     /// <summary>
     /// Callback triggered when the tooltip becomes visible.
@@ -93,11 +82,6 @@ public interface IFloatingTooltip : ICancellableComponent
     /// Override: Theme of the tooltip (e.g. dark, light).
     /// </summary>
     FloatingTooltipTheme? Theme { get; set; }
-
-    /// <summary>
-    /// Override: Maximum width of the tooltip in pixels.
-    /// </summary>
-    int? MaxWidth { get; set; }
 
     /// <summary>
     /// Override: If true, the tooltip must be manually triggered to show/hide.
