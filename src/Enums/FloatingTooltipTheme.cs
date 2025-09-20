@@ -3,7 +3,7 @@ using Intellenum;
 namespace Soenneker.Blazor.Floating.Tooltips.Enums;
 
 [Intellenum<string>]
-public partial class FloatingTooltipTheme
+public sealed partial class FloatingTooltipTheme
 {
     public static readonly FloatingTooltipTheme Dark = new("dark");
     public static readonly FloatingTooltipTheme Light = new("light");

@@ -6,7 +6,7 @@ namespace Soenneker.Blazor.Floating.Tooltips.Enums;
 /// Tooltip placement relative to the reference element.
 /// </summary>
 [Intellenum<string>]
-public partial class FloatingTooltipPlacement
+public sealed partial class FloatingTooltipPlacement
 {
     public static readonly FloatingTooltipPlacement Top = new("top");
     public static readonly FloatingTooltipPlacement Bottom = new("bottom");

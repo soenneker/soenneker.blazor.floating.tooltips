@@ -9,7 +9,7 @@
 
 @inject IFloatingTooltipInterop TooltipInterop
 
-@inherits Soenneker.Quark.Components.Cancellable.CancellableElement
+@inherits Soenneker.Quark.Components.Core.Cancellable.CoreCancellableElement
 @implements IFloatingTooltip
 
 <CascadingValue Value="this" >
@@ -19,17 +19,14 @@
 
     @if (_initialized)
     {
-        <div id="@($"tooltip-{Id}")" @attributes="TooltipAttributes" on-clikClick="" >
+        <div id="@($"tooltip-{Id}")" @attributes="Attributes">
             @ResolvedContent
         </div>
     }
 </CascadingValue>
 
 @code {
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object?>? TooltipAttributes { get; set; }
-
+    
     [Parameter]
     public Dictionary<string, object?>? AnchorAttributes { get; set; }
     

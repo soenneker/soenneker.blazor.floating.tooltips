@@ -4,24 +4,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Soenneker.Blazor.Floating.Tooltips.Enums;
 using Soenneker.Blazor.Floating.Tooltips.Options;
-using Soenneker.Quark.Components.Cancellable.Abstract;
+using Soenneker.Quark.Components.Core.Cancellable.Abstract;
 
 namespace Soenneker.Blazor.Floating.Tooltips.Abstract;
 
 /// <summary>
 /// Represents a floating tooltip component instance with customizable appearance, behavior, and lifecycle methods.
 /// </summary>
-public interface IFloatingTooltip : ICancellableElement
+public interface IFloatingTooltip : ICoreCancellableElement
 {
     /// <summary>
     /// The tooltip content as a plain string. Mutually exclusive with <see cref="SetTooltipContent"/>.
     /// </summary>
     string? Text { get; set; }
-
-    /// <summary>
-    /// Optional parameters applied to the tooltip container.
-    /// </summary>
-    Dictionary<string, object?>? TooltipAttributes { get; set; }
 
     /// <summary>
     /// Optional parameters applied to the tooltip anchor element.

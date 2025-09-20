@@ -6,7 +6,7 @@ namespace Soenneker.Blazor.Floating.Tooltips.Options;
 /// <summary>
 /// Options for configuring a floating tooltip.
 /// </summary>
-public class FloatingTooltipOptions
+public sealed class FloatingTooltipOptions
 {
     /// <summary>
     /// Tooltip placement relative to the reference element (e.g. "top", "bottom-start", "right-end").
