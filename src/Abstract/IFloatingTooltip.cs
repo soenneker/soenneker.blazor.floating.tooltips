@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Soenneker.Blazor.Floating.Tooltips.Enums;
 using Soenneker.Blazor.Floating.Tooltips.Options;
-using Soenneker.Quark.Components.Core.Cancellable.Abstract;
+using Soenneker.Quark;
 
 namespace Soenneker.Blazor.Floating.Tooltips.Abstract;
 
