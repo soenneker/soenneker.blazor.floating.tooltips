@@ -47,6 +47,6 @@
         <PackageReference Include="Soenneker.Extensions.String" Version="4.0.594" />
         <PackageReference Include="Soenneker.Utils.Json" Version="4.0.2392" />
         <PackageReference Include="Soenneker.Extensions.CancellationTokens" Version="4.0.7" />
-        <PackageReference Include="Soenneker.Quark.Components.Core.Cancellable" Version="4.0.34" />
+        <PackageReference Include="Soenneker.Quark.Components.Core.Cancellable" Version="4.0.35" />
     </ItemGroup>
 </Project>
