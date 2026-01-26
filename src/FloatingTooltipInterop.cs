@@ -52,12 +52,12 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
         });
     }
 
-    public ValueTask Initialize(bool useCdn = true, CancellationToken cancellationToken = default)
+    public async ValueTask Initialize(bool useCdn = true, CancellationToken cancellationToken = default)
     {
         var linked = _cancellationScope.CancellationToken.Link(cancellationToken, out var source);
 
         using (source)
-            return _scriptInitializer.Init(useCdn, linked);
+            await _scriptInitializer.Init(useCdn, linked);
     }
 
     public async ValueTask Create(string id, FloatingTooltipOptions options, CancellationToken cancellationToken = default)
@@ -79,36 +79,36 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
         return _jSRuntime.InvokeVoidAsync($"{_moduleName}.setCallbacks", id, dotNetRef);
     }
 
-    public ValueTask Destroy(string id, CancellationToken cancellationToken = default)
+    public async ValueTask Destroy(string id, CancellationToken cancellationToken = default)
     {
         var linked = _cancellationScope.CancellationToken.Link(cancellationToken, out var source);
 
         using (source)
-            return _jSRuntime.InvokeVoidAsync($"{_moduleName}.dispose", linked, id);
+            await _jSRuntime.InvokeVoidAsync($"{_moduleName}.dispose", linked, id);
     }
 
-    public ValueTask Show(string id, CancellationToken cancellationToken = default)
+    public async ValueTask Show(string id, CancellationToken cancellationToken = default)
     {
         var linked = _cancellationScope.CancellationToken.Link(cancellationToken, out var source);
 
         using (source)
-            return _jSRuntime.InvokeVoidAsync($"{_moduleName}.show", linked, id);
+            await _jSRuntime.InvokeVoidAsync($"{_moduleName}.show", linked, id);
     }
 
-    public ValueTask Hide(string id, CancellationToken cancellationToken = default)
+    public async ValueTask Hide(string id, CancellationToken cancellationToken = default)
     {
         var linked = _cancellationScope.CancellationToken.Link(cancellationToken, out var source);
 
         using (source)
-            return _jSRuntime.InvokeVoidAsync($"{_moduleName}.hide", linked, id);
+            await _jSRuntime.InvokeVoidAsync($"{_moduleName}.hide", linked, id);
     }
 
-    public ValueTask Toggle(string id, CancellationToken cancellationToken = default)
+    public async ValueTask Toggle(string id, CancellationToken cancellationToken = default)
     {
         var linked = _cancellationScope.CancellationToken.Link(cancellationToken, out var source);
 
         using (source)
-            return _jSRuntime.InvokeVoidAsync($"{_moduleName}.toggle", linked, id);
+            await _jSRuntime.InvokeVoidAsync($"{_moduleName}.toggle", linked, id);
     }
 
     public async ValueTask DisposeAsync()
