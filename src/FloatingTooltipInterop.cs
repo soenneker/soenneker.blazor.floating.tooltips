@@ -2,6 +2,8 @@ using Microsoft.JSInterop;
 using Soenneker.Blazor.Floating.Tooltips.Abstract;
 using Soenneker.Blazor.Floating.Tooltips.Options;
 using Soenneker.Blazor.Utils.ResourceLoader.Abstract;
+using Soenneker.Extensions.CancellationTokens;
+using Soenneker.Utils.CancellationScopes;
 using Soenneker.Utils.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,6 +20,8 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
 
     private const string _module = "Soenneker.Blazor.Floating.Tooltips/js/floatingtooltipinterop.js";
     private const string _moduleName = "FloatingTooltipInterop";
+
+    private readonly CancellationScope _cancellationScope = new();
 
     public FloatingTooltipInterop(IJSRuntime jSRuntime, IResourceLoader resourceLoader)
     {
@@ -50,16 +54,24 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
 
     public ValueTask Initialize(bool useCdn = true, CancellationToken cancellationToken = default)
     {
-        return _scriptInitializer.Init(useCdn, cancellationToken);
+        var linked = _cancellationScope.CancellationToken.Link(cancellationToken, out var source);
+
+        using (source)
+            return _scriptInitializer.Init(useCdn, linked);
     }
 
     public async ValueTask Create(string id, FloatingTooltipOptions options, CancellationToken cancellationToken = default)
     {
-        await _scriptInitializer.Init(options.UseCdn, cancellationToken);
+        var linked = _cancellationScope.CancellationToken.Link(cancellationToken, out var source);
 
-        string json = JsonUtil.Serialize(options)!;
+        using (source)
+        {
+            await _scriptInitializer.Init(options.UseCdn, linked);
 
-        await _jSRuntime.InvokeVoidAsync($"{_moduleName}.create", cancellationToken, id, json);
+            string json = JsonUtil.Serialize(options)!;
+
+            await _jSRuntime.InvokeVoidAsync($"{_moduleName}.create", linked, id, json);
+        }
     }
 
     public ValueTask SetCallbacks(string id, DotNetObjectReference<FloatingTooltip> dotNetRef)
@@ -69,27 +81,40 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
 
     public ValueTask Destroy(string id, CancellationToken cancellationToken = default)
     {
-        return _jSRuntime.InvokeVoidAsync($"{_moduleName}.dispose", cancellationToken, id);
+        var linked = _cancellationScope.CancellationToken.Link(cancellationToken, out var source);
+
+        using (source)
+            return _jSRuntime.InvokeVoidAsync($"{_moduleName}.dispose", linked, id);
     }
 
     public ValueTask Show(string id, CancellationToken cancellationToken = default)
     {
-        return _jSRuntime.InvokeVoidAsync($"{_moduleName}.show", cancellationToken, id);
+        var linked = _cancellationScope.CancellationToken.Link(cancellationToken, out var source);
+
+        using (source)
+            return _jSRuntime.InvokeVoidAsync($"{_moduleName}.show", linked, id);
     }
 
     public ValueTask Hide(string id, CancellationToken cancellationToken = default)
     {
-        return _jSRuntime.InvokeVoidAsync($"{_moduleName}.hide", cancellationToken, id);
+        var linked = _cancellationScope.CancellationToken.Link(cancellationToken, out var source);
+
+        using (source)
+            return _jSRuntime.InvokeVoidAsync($"{_moduleName}.hide", linked, id);
     }
 
     public ValueTask Toggle(string id, CancellationToken cancellationToken = default)
     {
-        return _jSRuntime.InvokeVoidAsync($"{_moduleName}.toggle", cancellationToken, id);
+        var linked = _cancellationScope.CancellationToken.Link(cancellationToken, out var source);
+
+        using (source)
+            return _jSRuntime.InvokeVoidAsync($"{_moduleName}.toggle", linked, id);
     }
 
     public async ValueTask DisposeAsync()
     {
         await _resourceLoader.DisposeModule(_module);
         await _scriptInitializer.DisposeAsync();
+        await _cancellationScope.DisposeAsync();
     }
 }
