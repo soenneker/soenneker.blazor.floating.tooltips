@@ -1,11 +1,11 @@
-using Intellenum;
+using Soenneker.Gen.EnumValues;
 
 namespace Soenneker.Blazor.Floating.Tooltips.Enums;
 
 /// <summary>
 /// Tooltip placement relative to the reference element.
 /// </summary>
-[Intellenum<string>]
+[EnumValue<string>]
 public sealed partial class FloatingTooltipPlacement
 {
     public static readonly FloatingTooltipPlacement Top = new("top");

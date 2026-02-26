@@ -1,8 +1,8 @@
-using Intellenum;
+using Soenneker.Gen.EnumValues;
 
 namespace Soenneker.Blazor.Floating.Tooltips.Enums;
 
-[Intellenum<string>]
+[EnumValue<string>]
 public sealed partial class FloatingTooltipTheme
 {
     public static readonly FloatingTooltipTheme Dark = new("dark");

@@ -137,7 +137,7 @@
 
     <h3 class="mb-3" >📐 Placement Examples</h3>
     <div class="d-flex flex-wrap gap-2" >
-        @foreach (FloatingTooltipPlacement placement in FloatingTooltipPlacement.List())
+        @foreach (FloatingTooltipPlacement placement in FloatingTooltipPlacement.List)
         {
             <FloatingTooltip Text=@($"Placed: {placement.Value}") Placement="@placement" >
                 <button class="btn btn-outline-dark" >@placement.Value</button>
@@ -149,7 +149,7 @@
 
     <h3 class="mb-3" >🎨 Theme Variations</h3>
     <div class="d-flex flex-wrap gap-2" >
-        @foreach (FloatingTooltipTheme theme in FloatingTooltipTheme.List())
+        @foreach (FloatingTooltipTheme theme in FloatingTooltipTheme.List)
         {
             <FloatingTooltip Text=@($"Theme: {theme.Value}") Theme="@theme" >
                 <button class="btn btn-outline-secondary" >@theme.Value</button>
