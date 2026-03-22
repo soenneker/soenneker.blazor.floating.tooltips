@@ -48,7 +48,7 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
             }
 
             await _resourceLoader.LoadStyle("_content/Soenneker.Blazor.Floating.Tooltips/css/floatingtooltip.css", cancellationToken: token);
-            await _resourceLoader.ImportModuleAndWaitUntilAvailable(_module, _moduleName, 100, token);
+            await _resourceLoader.ImportModule(_module, token);
         });
     }
 
