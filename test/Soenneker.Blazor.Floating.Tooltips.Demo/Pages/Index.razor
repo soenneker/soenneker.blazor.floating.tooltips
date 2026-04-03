@@ -57,12 +57,12 @@
                 <h5>🧠 Custom HTML Content</h5>
                 <FloatingTooltip>
                     <span class="text-info" style="cursor: pointer; display: inline-block;" >ℹ️ Hover me for more details</span>
-                    <TooltipContent>
+                    <Soenneker.Blazor.Floating.Tooltips.TooltipContent>
                         <div>
                             <strong>Pro Tip:</strong><br />
                             Tooltips can include <em>any markup</em> like <code>&lt;strong&gt;</code> and <code>&lt;em&gt;</code>.
                         </div>
-                    </TooltipContent>
+                    </Soenneker.Blazor.Floating.Tooltips.TooltipContent>
                 </FloatingTooltip>
             </div>
         </div>
@@ -81,9 +81,9 @@
                 <h5>📷 Tooltip with Image</h5>
                 <FloatingTooltip>
                     <span style="cursor: pointer;" >🖼 Hover to preview image</span>
-                    <TooltipContent>
+                    <Soenneker.Blazor.Floating.Tooltips.TooltipContent>
                         <img src="https://picsum.photos/100/60" alt="Preview" class="rounded" />
-                    </TooltipContent>
+                    </Soenneker.Blazor.Floating.Tooltips.TooltipContent>
                 </FloatingTooltip>
             </div>
         </div>
@@ -111,14 +111,14 @@
                 <h5>🖱️ Interactive Tooltip</h5>
                 <FloatingTooltip Interactive="true" >
                     <span style="cursor: pointer;" class="text-primary" >Hover for interactive tooltip</span>
-                    <TooltipContent>
+                    <Soenneker.Blazor.Floating.Tooltips.TooltipContent>
                         <div class="d-flex flex-column align-items-center p-2" >
                             <div class="mb-2" >Click this:</div>
                             <Button Color="Color.Primary" @onclick="LogTooltipClick" >
                                 Inside
                             </Button>
                         </div>
-                    </TooltipContent>
+                    </Soenneker.Blazor.Floating.Tooltips.TooltipContent>
                 </FloatingTooltip>
             </div>
         </div>
@@ -169,7 +169,7 @@
     <h3>Constraining</h3>
     <Row>
         <Column ColumnSize="ColumnSize.Is1" >
-            <Card Margin="Margin.Is1.OnDesktop.Is1.OnTablet" >
+            <Card Margin="Margin.Is1.OnLg.Is1.OnMd" >
                 <FloatingTooltip Text="@($"This is a long line, and isn't constrained by parent elements. The next line is below this one: \n New line")" >
                     <CardBody TextAlignment="TextAlignment.Center" >
                         <CardTitle Size="4" class="text-muted" >Card Title</CardTitle>
