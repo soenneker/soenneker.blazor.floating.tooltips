@@ -6,6 +6,7 @@
 @using Soenneker.Blazor.Floating.Tooltips.Enums
 @using Soenneker.Extensions.CancellationTokens
 @using Soenneker.Extensions.String
+@using Soenneker.Blazor.Utils.Ids
 
 @inject IFloatingTooltipInterop TooltipInterop
 
@@ -36,7 +37,7 @@
     public string? Text { get; set; }
 
     [Parameter]
-    public override string? Id { get; set; } = "ft-" + Guid.NewGuid();
+    public override string? Id { get; set; } = BlazorIdGenerator.New("ft");
 
     [Parameter]
     public EventCallback OnShow { get; set; }
