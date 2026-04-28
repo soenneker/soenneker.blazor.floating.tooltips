@@ -8,8 +8,10 @@ font-medium
 font-semibold
 gap-3
 gap-4
+grid-cols-1
 inline-flex
 m-0
+md:grid-cols-2
 my-2
 pb-4
 px-4

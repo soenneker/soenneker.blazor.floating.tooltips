@@ -13,7 +13,7 @@
         for positioning.
     </Paragraph>
 
-    <Grid Columns="Columns.Is1.OnMd.Is2" Gap="Gap.Is4">
+    <Grid Columns="GridCols.Is1.OnMd.Is2" Gap="Gap.Is4">
         <DemoPanel Title="Basic text" Description="Simple string content.">
             <FloatingTooltip Text="Hello there">
                 <Button>Hover me</Button>
@@ -109,7 +109,7 @@
     </DemoPanel>
 
     <DemoPanel Title="Constraining" Description="Tooltip should not shrink the card or constrain unrelated inputs.">
-        <Grid Columns="Columns.Is1" Gap="Gap.Is4">
+        <Grid Columns="GridCols.Is1" Gap="Gap.Is4">
             <Card>
                 <FloatingTooltip Text="@($"This is a long line, and isn't constrained by parent elements. The next line is below this one: \n New line")">
                     <CardBody TextAlignment="TextAlignment.Center">
