@@ -10,7 +10,7 @@
 
 @inject IFloatingTooltipInterop TooltipInterop
 
-@inherits Soenneker.Quark.CoreCancellableElement
+@inherits Soenneker.Lepton.Suite.LeptonCancellableIdentifiableContentElement
 @implements IFloatingTooltip
 
 <CascadingValue Value="this" >
@@ -20,7 +20,7 @@
 
     @if (_initialized)
     {
-        <div id="@($"tooltip-{Id}")" @attributes="Attributes">
+        <div @attributes='BuildAttributes("id", $"tooltip-{Id}")'>
             @ResolvedContent
         </div>
     }
@@ -36,8 +36,10 @@
     [Parameter]
     public string? Text { get; set; }
 
-    [Parameter]
-    public override string? Id { get; set; } = BlazorIdGenerator.New("ft");
+    public FloatingTooltip()
+    {
+        Id = BlazorIdGenerator.New("ft");
+    }
 
     [Parameter]
     public EventCallback OnShow { get; set; }

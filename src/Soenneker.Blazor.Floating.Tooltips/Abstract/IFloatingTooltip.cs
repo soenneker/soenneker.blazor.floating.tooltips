@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Soenneker.Blazor.Floating.Tooltips.Enums;
 using Soenneker.Blazor.Floating.Tooltips.Options;
-using Soenneker.Quark;
+using Soenneker.Lepton.Suite.Abstract;
 
 namespace Soenneker.Blazor.Floating.Tooltips.Abstract;
 
 /// <summary>
 /// Represents a floating tooltip component instance with customizable appearance, behavior, and lifecycle methods.
 /// </summary>
-public interface IFloatingTooltip : ICoreCancellableElement
+public interface IFloatingTooltip : ILeptonCancellableIdentifiableContentElement
 {
     /// <summary>
     /// The tooltip content as a plain string. Mutually exclusive with <see cref="SetTooltipContent"/>.
