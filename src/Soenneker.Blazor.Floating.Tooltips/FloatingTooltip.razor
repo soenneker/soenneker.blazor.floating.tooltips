@@ -20,7 +20,7 @@
 
     @if (_initialized)
     {
-        <div @attributes='BuildAttributes("id", $"tooltip-{Id}")'>
+        <div @attributes="TooltipAttributes">
             @ResolvedContent
         </div>
     }
@@ -97,6 +97,16 @@
     private bool _initialized;
     private bool _createPending;
     private DotNetObjectReference<FloatingTooltip>? _dotNetRef;
+
+    private Dictionary<string, object> TooltipAttributes
+    {
+        get
+        {
+            Dictionary<string, object> attributes = BuildAttributes();
+            attributes["id"] = $"tooltip-{Id}";
+            return attributes;
+        }
+    }
 
     private RenderFragment? ResolvedContent =>
         _tooltipContent != null

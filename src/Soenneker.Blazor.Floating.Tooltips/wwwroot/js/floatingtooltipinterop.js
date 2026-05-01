@@ -10,18 +10,23 @@ export async function create(id, optionsJson) {
     const tooltipId = "tooltip-" + id;
 
     const anchor = document.getElementById(anchorId);
+    const tooltip = document.getElementById(tooltipId);
+
+    if (!anchor || !tooltip) {
+        console.warn('Reference or tooltip element not found.', {
+            anchorId,
+            tooltipId,
+            anchorFound: !!anchor,
+            tooltipFound: !!tooltip
+        });
+        return;
+    }
+
     let reference = anchor.querySelector("[data-tooltip-anchor]") ?? anchor.firstElementChild;
 
     if (!reference) {
         reference = anchor;
         anchor.style.display = "inline-block";
-    }
-
-    const tooltip = document.getElementById(tooltipId);
-
-    if (!reference || !tooltip) {
-        console.warn('Reference or tooltip element not found.', { anchorId, tooltipId });
-        return;
     }
 
     if (!options?.enabled) {
