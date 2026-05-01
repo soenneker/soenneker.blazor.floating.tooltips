@@ -51,27 +51,19 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
         else
         {
             await _resourceLoader.LoadScriptAndWaitForVariable(
-                NormalizeContentUri("_content/Soenneker.Blazor.Floating.Tooltips/js/floating-ui.core.umd.min.js"),
-                "FloatingUIDOM",
+                "_content/Soenneker.Blazor.Floating.Tooltips/js/floating-ui.core.umd.min.js",
+                "FloatingUICore",
                 cancellationToken: token);
 
             await _resourceLoader.LoadScriptAndWaitForVariable(
-                NormalizeContentUri("_content/Soenneker.Blazor.Floating.Tooltips/js/floating-ui.dom.umd.min.js"),
+                "_content/Soenneker.Blazor.Floating.Tooltips/js/floating-ui.dom.umd.min.js",
                 "FloatingUIDOM",
                 cancellationToken: token);
         }
 
-        await _resourceLoader.LoadStyle(NormalizeContentUri("_content/Soenneker.Blazor.Floating.Tooltips/css/floatingtooltip.css"), cancellationToken: token);
+        await _resourceLoader.LoadStyle("_content/Soenneker.Blazor.Floating.Tooltips/css/floatingtooltip.css", cancellationToken: token);
 
         _ = await _moduleImportUtil.GetContentModuleReference(_modulePath, token);
-    }
-
-    private static string NormalizeContentUri(string uri)
-    {
-        if (string.IsNullOrEmpty(uri) || uri.Contains("://", StringComparison.Ordinal))
-            return uri;
-
-        return uri[0] == '/' ? uri : "/" + uri;
     }
 
     public async ValueTask Initialize(bool useCdn = true, CancellationToken cancellationToken = default)
