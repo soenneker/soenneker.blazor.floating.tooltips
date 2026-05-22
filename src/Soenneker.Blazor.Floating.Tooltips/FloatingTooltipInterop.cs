@@ -1,4 +1,5 @@
 using Microsoft.JSInterop;
+using Soenneker.Blazor.Interops.Floating.Abstract;
 using Soenneker.Blazor.Floating.Tooltips.Abstract;
 using Soenneker.Blazor.Floating.Tooltips.Options;
 using Soenneker.Blazor.Utils.ModuleImport.Abstract;
@@ -6,7 +7,6 @@ using Soenneker.Blazor.Utils.ResourceLoader.Abstract;
 using Soenneker.Extensions.CancellationTokens;
 using Soenneker.Utils.CancellationScopes;
 using Soenneker.Utils.Json;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Soenneker.Asyncs.Initializers;
@@ -19,14 +19,16 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
     private const string _modulePath = "_content/Soenneker.Blazor.Floating.Tooltips/js/floatingtooltipinterop.js";
 
     private readonly IResourceLoader _resourceLoader;
+    private readonly IFloatingUiInterop _floatingUiInterop;
     private readonly IModuleImportUtil _moduleImportUtil;
     private readonly AsyncInitializer<bool> _scriptInitializer;
 
     private readonly CancellationScope _cancellationScope = new();
 
-    public FloatingTooltipInterop(IResourceLoader resourceLoader, IModuleImportUtil moduleImportUtil)
+    public FloatingTooltipInterop(IResourceLoader resourceLoader, IFloatingUiInterop floatingUiInterop, IModuleImportUtil moduleImportUtil)
     {
         _resourceLoader = resourceLoader;
+        _floatingUiInterop = floatingUiInterop;
         _moduleImportUtil = moduleImportUtil;
 
         _scriptInitializer = new AsyncInitializer<bool>(InitializeScripts);
@@ -34,33 +36,7 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
 
     private async ValueTask InitializeScripts(bool useCdn, CancellationToken token)
     {
-        if (useCdn)
-        {
-            await _resourceLoader.LoadScriptAndWaitForVariable(
-                "https://cdn.jsdelivr.net/npm/@floating-ui/core@1.7.2/dist/floating-ui.core.umd.min.js",
-                "FloatingUICore",
-                "sha256-OhWDdFHrIg8eNZaNgWL2ax7tjKNFOBQq3WErqxfHdlQ=",
-                cancellationToken: token);
-
-            await _resourceLoader.LoadScriptAndWaitForVariable(
-                "https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.7.2/dist/floating-ui.dom.umd.min.js",
-                "FloatingUIDOM",
-                "sha256-cycZmidLw+l9uWDr4bUhL26YMJg1G6aM0AnUEPG9sME=",
-                cancellationToken: token);
-        }
-        else
-        {
-            await _resourceLoader.LoadScriptAndWaitForVariable(
-                "_content/Soenneker.Blazor.Floating.Tooltips/js/floating-ui.core.umd.min.js",
-                "FloatingUICore",
-                cancellationToken: token);
-
-            await _resourceLoader.LoadScriptAndWaitForVariable(
-                "_content/Soenneker.Blazor.Floating.Tooltips/js/floating-ui.dom.umd.min.js",
-                "FloatingUIDOM",
-                cancellationToken: token);
-        }
-
+        await _floatingUiInterop.Initialize(useCdn, token);
         await _resourceLoader.LoadStyle("_content/Soenneker.Blazor.Floating.Tooltips/css/floatingtooltip.css", cancellationToken: token);
 
         _ = await _moduleImportUtil.GetContentModuleReference(_modulePath, token);

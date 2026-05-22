@@ -332,6 +332,9 @@
   .right-3 {
     right: calc(var(--spacing) * 3);
   }
+  .-bottom-1 {
+    bottom: calc(var(--spacing) * -1);
+  }
   .-bottom-12 {
     bottom: calc(var(--spacing) * -12);
   }
@@ -656,10 +659,6 @@
     width: calc(var(--spacing) * 8);
     height: calc(var(--spacing) * 8);
   }
-  .size-9 {
-    width: calc(var(--spacing) * 9);
-    height: calc(var(--spacing) * 9);
-  }
   .size-10 {
     width: calc(var(--spacing) * 10);
     height: calc(var(--spacing) * 10);
@@ -798,6 +797,9 @@
   }
   .min-h-16 {
     min-height: calc(var(--spacing) * 16);
+  }
+  .min-h-72 {
+    min-height: calc(var(--spacing) * 72);
   }
   .min-h-\[104px\] {
     min-height: 104px;
@@ -1061,6 +1063,9 @@
   }
   .rotate-90 {
     rotate: 90deg;
+  }
+  .rotate-180 {
+    rotate: 180deg;
   }
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
@@ -1471,8 +1476,17 @@
   .border-border {
     border-color: var(--border);
   }
+  .border-current {
+    border-color: currentcolor;
+  }
   .border-destructive {
     border-color: var(--destructive);
+  }
+  .border-destructive\/30 {
+    border-color: var(--destructive);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--destructive) 30%, transparent);
+    }
   }
   .border-input {
     border-color: var(--input);
@@ -1507,6 +1521,9 @@
   .\!bg-transparent {
     background-color: transparent !important;
   }
+  .bg-\[Canvas\] {
+    background-color: Canvas;
+  }
   .bg-accent {
     background-color: var(--accent);
   }
@@ -1523,6 +1540,12 @@
     background-color: var(--background);
     @supports (color: color-mix(in lab, red, red)) {
       background-color: color-mix(in oklab, var(--background) 90%, transparent);
+    }
+  }
+  .bg-background\/95 {
+    background-color: var(--background);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--background) 95%, transparent);
     }
   }
   .bg-black\/10 {
@@ -2057,6 +2080,9 @@
   .\!text-foreground {
     color: var(--foreground) !important;
   }
+  .text-\[CanvasText\] {
+    color: CanvasText;
+  }
   .text-accent {
     color: var(--accent);
   }
@@ -2326,6 +2352,10 @@
   .transition-none {
     transition-property: none;
   }
+  .duration-0 {
+    --tw-duration: 0ms;
+    transition-duration: 0ms;
+  }
   .duration-100 {
     --tw-duration: 100ms;
     transition-duration: 100ms;
@@ -2465,11 +2495,6 @@
       display: none;
     }
   }
-  .group-has-data-\[slot\=command-shortcut\]\/command-item\:hidden {
-    &:is(:where(.group\/command-item):has(*[data-slot="command-shortcut"]) *) {
-      display: none;
-    }
-  }
   .group-has-data-\[slot\=designer\]\/layout\:max-w-none {
     &:is(:where(.group\/layout):has(*[data-slot="designer"]) *) {
       max-width: none;
@@ -2501,9 +2526,9 @@
       grid-column-start: 2;
     }
   }
-  .group-aria-expanded\/accordion-trigger\:hidden {
+  .group-aria-expanded\/accordion-trigger\:rotate-180 {
     &:is(:where(.group\/accordion-trigger)[aria-expanded="true"] *) {
-      display: none;
+      rotate: 180deg;
     }
   }
   .group-data-empty\/combobox-content\:flex {
@@ -2800,11 +2825,6 @@
       padding-inline: calc(var(--spacing) * 2);
     }
   }
-  .group-data-\[state\=open\]\:rotate-180 {
-    &:is(:where(.group)[data-state="open"] *) {
-      rotate: 180deg;
-    }
-  }
   .group-data-\[state\=open\]\:group-data-\[streaming\=false\]\:opacity-100 {
     &:is(:where(.group)[data-state="open"] *) {
       &:is(:where(.group)[data-streaming="false"] *) {
@@ -2842,11 +2862,6 @@
   .group-data-\[variant\=outline\]\/field-group\:-mb-2 {
     &:is(:where(.group\/field-group)[data-variant="outline"] *) {
       margin-bottom: calc(var(--spacing) * -2);
-    }
-  }
-  .group-data-\[vaul-drawer-direction\=bottom\]\/drawer-content\:block {
-    &:is(:where(.group\/drawer-content)[data-vaul-drawer-direction="bottom"] *) {
-      display: block;
     }
   }
   .group-data-\[vaul-drawer-direction\=bottom\]\/drawer-content\:text-center {
@@ -3309,16 +3324,6 @@
       }
     }
   }
-  .hover\:bg-destructive\/20 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--destructive);
-        @supports (color: color-mix(in lab, red, red)) {
-          background-color: color-mix(in oklab, var(--destructive) 20%, transparent);
-        }
-      }
-    }
-  }
   .hover\:bg-muted {
     &:hover {
       @media (hover: hover) {
@@ -3340,16 +3345,6 @@
     &:hover {
       @media (hover: hover) {
         background-color: var(--primary);
-      }
-    }
-  }
-  .hover\:bg-secondary\/80 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--secondary);
-        @supports (color: color-mix(in lab, red, red)) {
-          background-color: color-mix(in oklab, var(--secondary) 80%, transparent);
-        }
       }
     }
   }
@@ -3524,14 +3519,6 @@
   .focus-visible\:z-10 {
     &:focus-visible {
       z-index: 10;
-    }
-  }
-  .focus-visible\:border-destructive\/40 {
-    &:focus-visible {
-      border-color: var(--destructive);
-      @supports (color: color-mix(in lab, red, red)) {
-        border-color: color-mix(in oklab, var(--destructive) 40%, transparent);
-      }
     }
   }
   .focus-visible\:border-ring {
@@ -3968,9 +3955,9 @@
       position: relative;
     }
   }
-  .has-data-\[slot\=alert-action\]\:pe-18 {
+  .has-data-\[slot\=alert-action\]\:pr-18 {
     &:has(*[data-slot="alert-action"]) {
-      padding-inline-end: calc(var(--spacing) * 18);
+      padding-right: calc(var(--spacing) * 18);
     }
   }
   .has-data-\[slot\=alert-dialog-media\]\:grid-rows-\[auto_auto_1fr\] {
@@ -4234,19 +4221,9 @@
       background-color: var(--muted);
     }
   }
-  .aria-expanded\:bg-secondary {
-    &[aria-expanded="true"] {
-      background-color: var(--secondary);
-    }
-  }
   .aria-expanded\:text-foreground {
     &[aria-expanded="true"] {
       color: var(--foreground);
-    }
-  }
-  .aria-expanded\:text-secondary-foreground {
-    &[aria-expanded="true"] {
-      color: var(--secondary-foreground);
     }
   }
   .aria-expanded\:opacity-100 {
@@ -4864,9 +4841,9 @@
       min-width: var(--anchor-width);
     }
   }
-  .data-\[chromeless\=true\]\:h-auto {
+  .data-\[chromeless\=true\]\:min-h-0 {
     &[data-chromeless="true"] {
-      height: auto;
+      min-height: calc(var(--spacing) * 0);
     }
   }
   .data-\[chromeless\=true\]\:p-0 {
@@ -6731,23 +6708,6 @@
       display: block;
     }
   }
-  .\@md\/field-group\:flex-row {
-    @container field-group (width >= 28rem) {
-      flex-direction: row;
-    }
-  }
-  .\@md\/field-group\:items-center {
-    @container field-group (width >= 28rem) {
-      align-items: center;
-    }
-  }
-  .\@md\/field-group\:\*\:w-auto {
-    @container field-group (width >= 28rem) {
-      :is(& > *) {
-        width: auto;
-      }
-    }
-  }
   .ltr\:-translate-x-1\/2 {
     &:where(:dir(ltr), [dir="ltr"], [dir="ltr"] *) {
       --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);
@@ -6799,11 +6759,6 @@
       @supports (color: color-mix(in lab, red, red)) {
         border-color: color-mix(in oklab, var(--destructive) 50%, transparent);
       }
-    }
-  }
-  .dark\:border-input {
-    &:is(.dark *) {
-      border-color: var(--input);
     }
   }
   .dark\:border-muted {
@@ -6873,18 +6828,6 @@
           background-color: var(--accent);
           @supports (color: color-mix(in lab, red, red)) {
             background-color: color-mix(in oklab, var(--accent) 50%, transparent);
-          }
-        }
-      }
-    }
-  }
-  .dark\:hover\:bg-destructive\/30 {
-    &:is(.dark *) {
-      &:hover {
-        @media (hover: hover) {
-          background-color: var(--destructive);
-          @supports (color: color-mix(in lab, red, red)) {
-            background-color: color-mix(in oklab, var(--destructive) 30%, transparent);
           }
         }
       }
@@ -7394,24 +7337,6 @@
   .\[\.border-t\]\:pt-2 {
     &:is(.border-t) {
       padding-top: calc(var(--spacing) * 2);
-    }
-  }
-  .rtl\:\*\*\:\[\.rdp-button_next\>svg\]\:rotate-180 {
-    &:where(:dir(rtl), [dir="rtl"], [dir="rtl"] *) {
-      :is(& *) {
-        &:is(.rdp-button next>svg) {
-          rotate: 180deg;
-        }
-      }
-    }
-  }
-  .rtl\:\*\*\:\[\.rdp-button_previous\>svg\]\:rotate-180 {
-    &:where(:dir(rtl), [dir="rtl"], [dir="rtl"] *) {
-      :is(& *) {
-        &:is(.rdp-button previous>svg) {
-          rotate: 180deg;
-        }
-      }
     }
   }
   .\*\*\:\[\[cmdk-group-heading\]\]\:px-2 {

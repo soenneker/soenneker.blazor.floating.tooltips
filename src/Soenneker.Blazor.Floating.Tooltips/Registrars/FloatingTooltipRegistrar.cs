@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Soenneker.Blazor.Floating.Tooltips.Abstract;
-using Soenneker.Blazor.Utils.ResourceLoader.Registrars;
+using Soenneker.Blazor.Interops.Floating.Registrars;
 
 namespace Soenneker.Blazor.Floating.Tooltips.Registrars;
 
@@ -14,7 +14,8 @@ public static class FloatingTooltipRegistrar
     /// </summary>
     public static IServiceCollection AddFloatingTooltipAsScoped(this IServiceCollection services)
     {
-        services.AddResourceLoaderAsScoped().AddScoped<IFloatingTooltipInterop, FloatingTooltipInterop>();
+        services.AddFloatingUiInteropAsScoped()
+                .AddScoped<IFloatingTooltipInterop, FloatingTooltipInterop>();
 
         return services;
     }

@@ -97,6 +97,7 @@
 --width:
 --z-index:
 -80px
+-bottom-1
 -bottom-12
 -left-12
 -mb-2
@@ -119,9 +120,6 @@
 -webkit-text-fill-color:transparent
 @container/card-header
 @container/field-group
-@md/field-group:*:w-auto
-@md/field-group:flex-row
-@md/field-group:items-center
 AM
 Add
 Anthropic
@@ -139,7 +137,6 @@ August
 Backspace
 BradixDialogCloseContext
 BreadcrumbSeparator
-ButtonAttributes
 Cancelling
 Chat
 Choose
@@ -158,6 +155,7 @@ ContentAttributes
 Copied!
 Copy
 CopyCode
+CopyText
 DecrementHour
 DecrementMinute
 Dez
@@ -172,7 +170,6 @@ End
 Enter
 Error
 Escape
-F2
 Fast
 Feb
 Februar
@@ -252,6 +249,7 @@ HandleTouchCancel
 HandleTouchEnd
 HandleTouchStart
 HandleTriggerClick
+HandleTriggerPointerDown
 HandleValueChanged
 HandleWrapperClick
 HasLoadedOnce
@@ -346,8 +344,6 @@ Options
 Opus
 PM
 Page
-PageDown
-PageUp
 PanelAttributes
 ParentAccordionItem
 ParentAlert
@@ -387,6 +383,7 @@ PooledStringBuilder
 PrevMonth
 PreventDefault
 PreventLinkDefault
+PreventPointerDownDefault
 PreviewAttributes
 Previous
 Pro
@@ -517,8 +514,6 @@ Year
 [.border-b]:pb-2
 [.border-b]:pb-4
 [.border-t]:pt-2
-[CanvasText]
-[Canvas]
 [[data-side=left][data-collapsible=offcanvas]_&]:-right-2
 [[data-side=left][data-state=collapsed]_&]:cursor-e-resize
 [[data-side=right][data-collapsible=offcanvas]_&]:-left-2
@@ -538,6 +533,7 @@ abbreviated:
 abr
 abril
 absolute
+accent/50
 accordion
 accordion-content
 accordion-content-inner
@@ -646,10 +642,8 @@ aria-disabled:opacity-50
 aria-disabled:pointer-events-none
 aria-expanded
 aria-expanded:bg-muted
-aria-expanded:bg-secondary
 aria-expanded:opacity-100
 aria-expanded:text-foreground
-aria-expanded:text-secondary-foreground
 aria-haspopup
 aria-hidden
 aria-invalid
@@ -693,7 +687,6 @@ attachment-remove
 attachments
 attachments-empty
 attr
-attrSb
 attrs
 audio
 auto
@@ -718,10 +711,12 @@ basis-
 basis-full
 best
 bg-
+bg-[Canvas]
 bg-accent
 bg-background
 bg-background/70
 bg-background/90
+bg-background/95
 bg-black/10
 bg-border
 bg-border/40
@@ -764,8 +759,10 @@ border-2
 border-accent
 border-b
 border-border
+border-current
 border-dashed
 border-destructive
+border-destructive/30
 border-dotted
 border-input
 border-input/30
@@ -782,12 +779,11 @@ border-t-primary
 border-t-transparent
 border-transparent
 border-y
+border/90
 border:
 bottom
-bottom--1
 bottom-0
 bottom-6
-bottom:
 bounds
 br
 breadcrumb
@@ -851,7 +847,6 @@ class
 claude-3.5
 claude-opus-4.1
 closed
-cls
 cmdk-group
 cmdk-input-wrapper
 cmdk-item
@@ -936,7 +931,6 @@ count
 crossorigin
 csharp
 currency-input
-current
 currentColor
 cursor-default
 cursor-grab
@@ -959,7 +953,6 @@ dark:bg-transparent
 dark:border-accent
 dark:border-border/50
 dark:border-destructive/50
-dark:border-input
 dark:border-muted
 dark:data-[active=true]:aria-invalid:ring-destructive/40
 dark:data-[variant=destructive]:focus:bg-destructive/20
@@ -986,7 +979,6 @@ dark:has-data-checked:bg-primary/10
 dark:has-data-checked:border-primary/20
 dark:has-disabled:bg-input/80
 dark:hover:bg-accent/50
-dark:hover:bg-destructive/30
 dark:hover:bg-input/50
 dark:hover:bg-muted/50
 dark:hover:bg-transparent
@@ -1011,7 +1003,7 @@ data-[align=center]:items-center
 data-[align=end]:items-end
 data-[align=start]:items-start
 data-[chips=true]:min-w-(--anchor-width)
-data-[chromeless=true]:h-auto
+data-[chromeless=true]:min-h-0
 data-[chromeless=true]:p-0
 data-[disabled=true]:opacity-50
 data-[disabled=true]:pointer-events-none
@@ -1415,6 +1407,7 @@ dropdown-menu-sub-content
 dropdown-menu-sub-trigger
 dropdown-menu-trigger
 dropend
+duration-0
 duration-100
 duration-1000
 duration-150
@@ -1471,6 +1464,7 @@ field-sizing-content
 fields
 figcaption
 figure
+file
 file:bg-transparent
 file:border-0
 file:font-medium
@@ -1507,7 +1501,6 @@ floating
 fmt
 focus-visible:after:border-ring
 focus-visible:bg-transparent
-focus-visible:border-destructive/40
 focus-visible:border-ring
 focus-visible:outline-1
 focus-visible:outline-hidden
@@ -1546,8 +1539,6 @@ font-sans
 font-semibold
 footer
 for
-foreach
-foreground
 form
 form-description
 form-item
@@ -1559,7 +1550,6 @@ from
 from-background
 from-primary
 from-transparent
-full
 full-screen
 février
 gap-
@@ -1599,8 +1589,9 @@ grid-rows-[auto_1fr]
 gridcell
 group
 group-action
-group-aria-expanded/accordion-trigger:hidden
+group-aria-expanded/accordion-trigger:rotate-180
 group-content
+group-data-[checked=true]/command-item
 group-data-[checked=true]/command-item:opacity-100
 group-data-[collapsible=icon]:-mt-8
 group-data-[collapsible=icon]:hidden
@@ -1647,6 +1638,7 @@ group-data-[size=sm]/alert-dialog-content:grid-cols-2
 group-data-[size=sm]/avatar:[&>svg]:hidden
 group-data-[size=sm]/avatar:size-2
 group-data-[size=sm]/avatar:text-xs
+group-data-[size=sm]/card
 group-data-[size=sm]/card:[.border-b]:pb-3
 group-data-[size=sm]/card:p-3
 group-data-[size=sm]/card:px-3
@@ -1665,8 +1657,9 @@ group-data-[spacing=0]/toggle-group:has-data-[icon=inline-start]:pl-1.5
 group-data-[spacing=0]/toggle-group:has-data-[icon=inline-start]:ps-1.5
 group-data-[spacing=0]/toggle-group:px-2
 group-data-[spacing=0]/toggle-group:rounded-none
+group-data-[state=open]
 group-data-[state=open]:group-data-[streaming=false]:opacity-100
-group-data-[state=open]:rotate-180
+group-data-[streaming=false]
 group-data-[streaming=true]:not-dark:shimmer-invert
 group-data-[streaming=true]:shimmer
 group-data-[streaming=true]:shimmer-repeat-delay-0
@@ -1681,7 +1674,7 @@ group-data-[variant=line]/tabs-list:data-active:after:opacity-100
 group-data-[variant=line]/tabs-list:data-active:bg-transparent
 group-data-[variant=line]/tabs-list:data-active:shadow-none
 group-data-[variant=outline]/field-group:-mb-2
-group-data-[vaul-drawer-direction=bottom]/drawer-content:block
+group-data-[vaul-drawer-direction=bottom]/drawer-content
 group-data-[vaul-drawer-direction=bottom]/drawer-content:text-center
 group-data-[vaul-drawer-direction=top]/drawer-content:text-center
 group-data-[viewport=false]/navigation-menu:bg-popover
@@ -1739,7 +1732,7 @@ group-has-data-[size=lg]/avatar-group:size-10
 group-has-data-[size=sm]/avatar-group:[&>svg]:size-3
 group-has-data-[size=sm]/avatar-group:size-6
 group-has-data-[slot=combobox-clear]/input-group:hidden
-group-has-data-[slot=command-shortcut]/command-item:hidden
+group-has-data-[slot=command-shortcut]/command-item
 group-has-data-[slot=designer]/layout:fixed:max-w-none
 group-has-data-[slot=designer]/layout:max-w-none
 group-has-data-[slot=item-description]/item:self-start
@@ -1760,6 +1753,7 @@ group/button-group
 group/calendar
 group/card
 group/card-header
+group/code-editor
 group/combobox-content
 group/command-item
 group/context-menu-item
@@ -1894,7 +1888,7 @@ has-data-[icon=inline-start]:ps-1.5
 has-data-[icon=inline-start]:ps-2
 has-data-[size=sm]:gap-2.5
 has-data-[size=xs]:gap-2
-has-data-[slot=alert-action]:pe-18
+has-data-[slot=alert-action]:pr-18
 has-data-[slot=alert-action]:relative
 has-data-[slot=alert-dialog-media]:gap-x-4
 has-data-[slot=alert-dialog-media]:grid-rows-[auto_auto_1fr]
@@ -1929,11 +1923,9 @@ hover:after:bg-sidebar-border
 hover:bg-accent
 hover:bg-background
 hover:bg-border
-hover:bg-destructive/20
 hover:bg-muted
 hover:bg-muted/50
 hover:bg-primary
-hover:bg-secondary/80
 hover:bg-sidebar-accent
 hover:bg-transparent
 hover:bg-white/10
@@ -1953,7 +1945,6 @@ hover:underline
 href
 hs
 icon
-icon-lg
 icon-sm
 icon-xs
 id
@@ -2012,6 +2003,7 @@ inset-x-0
 inset-y-0
 int
 intermediate
+invalid
 invisible
 is
 is-invalid
@@ -2046,7 +2038,6 @@ julio
 jun
 junho
 junio
-justify-
 justify-between
 justify-center
 justify-end
@@ -2056,9 +2047,7 @@ justify-start
 kbd
 kbd-chip
 kbd-group
-key
 key[0]
-kv
 label
 language
 last
@@ -2081,7 +2070,6 @@ left-0
 left-1.5
 left-1/2
 left-[50%]
-left:
 legend
 lg
 lg:bg-transparent
@@ -2235,6 +2223,7 @@ min-h-10
 min-h-12
 min-h-14
 min-h-16
+min-h-72
 min-h-8
 min-h-[104px]
 min-height:
@@ -2339,7 +2328,6 @@ number
 numeric
 object-contain
 object-cover
-object>
 oct
 octobre
 octubre
@@ -2632,8 +2620,6 @@ radio-group-item
 rail
 range
 rd
-rdp-button_next
-rdp-button_previous
 rdp-caption_label
 rdp-chevron
 rdp-day
@@ -2677,7 +2663,6 @@ resizable-panel-group
 resize-none
 resize:
 resolvedValues
-responsive
 return
 right
 right-0
@@ -2685,7 +2670,6 @@ right-1
 right-2
 right-2.5
 right-3
-right:
 ring-0
 ring-1
 ring-2
@@ -2698,6 +2682,7 @@ ring-offset-background
 ring-ring/50
 ring-sidebar-ring
 role
+rotate-180
 rotate-45
 rotate-90
 round
@@ -2731,8 +2716,6 @@ row-start-1
 rowheader
 rows
 rtl
-rtl:**:[.rdp-button_next>svg]:rotate-180
-rtl:**:[.rdp-button_previous>svg]:rotate-180
 rtl:-translate-x-1/2
 rtl:after:translate-x-1/2
 rtl:aria-[orientation=horizontal]:after:-translate-x-0
@@ -2829,6 +2812,7 @@ sidebar-menu-sub-item
 sidebar-rail
 sidebar-separator
 sidebar-trigger
+simple-icon
 single
 size-
 size-(--cell-size)
@@ -2845,7 +2829,6 @@ size-6
 size-6.5
 size-7
 size-8
-size-9
 size-auto
 size-full
 sizes
@@ -2926,7 +2909,6 @@ suitable
 summary
 supports-backdrop-filter:backdrop-blur-xs
 svg
-svgStart
 switch
 switch-thumb
 system
@@ -2972,7 +2954,6 @@ tabs-content
 tabs-list
 tabs-trigger
 tabular-nums
-tagEnd
 target
 tasks
 term:
@@ -2982,6 +2963,7 @@ text-3xl
 text-4xl
 text-[0.8rem]
 text-[1.05rem]
+text-[CanvasText]
 text-accent
 text-accent-foreground
 text-align:
@@ -3112,7 +3094,6 @@ ul
 ulong
 unchecked
 underline-offset-4
-unescaped[(separator
 unordered-list
 unordered-list-item
 updated
@@ -3121,7 +3102,6 @@ usemap
 user
 user-select:
 using
-utility
 val
 validation
 validation-errors
