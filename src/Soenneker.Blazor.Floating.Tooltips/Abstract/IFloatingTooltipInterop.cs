@@ -41,10 +41,28 @@ public interface IFloatingTooltipInterop : IAsyncDisposable
     /// <param name="cancellationToken">A cancellation token to cancel the operation.</param>
     ValueTask Destroy(string id, CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Executes the show operation.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     ValueTask Show(string id, CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Executes the hide operation.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     ValueTask Hide(string id, CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Executes the toggle operation.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     ValueTask Toggle(string id, CancellationToken cancellationToken = default);
 
     /// <summary>

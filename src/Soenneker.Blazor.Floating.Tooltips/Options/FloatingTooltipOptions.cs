@@ -50,6 +50,9 @@ public sealed class FloatingTooltipOptions
     [JsonPropertyName("enabled")]
     public bool Enabled { get; set; } = true;
 
+    /// <summary>
+    /// Gets or sets theme.
+    /// </summary>
     [JsonPropertyName("theme")]
     public FloatingTooltipTheme Theme { get; set; } = FloatingTooltipTheme.Dark;
 
