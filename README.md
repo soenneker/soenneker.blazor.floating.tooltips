@@ -4,27 +4,9 @@
 [![](https://img.shields.io/badge/Demo-Live-blueviolet?style=for-the-badge&logo=github)](https://soenneker.github.io/soenneker.blazor.floating.tooltips/)
 [![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.blazor.floating.tooltips/codeql.yml?label=CodeQL&style=for-the-badge)](https://github.com/soenneker/soenneker.blazor.floating.tooltips/actions/workflows/codeql.yml)
 
-# <img src="https://user-images.githubusercontent.com/4441470/224455560-91ed3ee7-f510-4041-a8d2-3fc093025112.png" alt="Logo" width="48"/> Soenneker.Blazor.Floating.Tooltips
+# Soenneker.Blazor.Floating.Tooltips
 
-> Modern Blazor tooltips powered by Floating UI.
-
-`Soenneker.Blazor.Floating.Tooltips` is a Blazor component library that integrates with [Floating UI](https://floating-ui.com/) to provide position-aware, customizable, and interactive tooltips with a C# API.
-
-[Open the demo site](https://soenneker.github.io/soenneker.blazor.floating.tooltips/)
-
----
-
-## Features
-
-- Position-aware and collision-resistant tooltip placement
-- Custom placements, show/hide delays, themes, and arrows
-- Interactive tooltip content
-- Manual show, hide, and toggle support from C#
-- Event callbacks for show and hide
-- Optional CDN loading for Floating UI scripts
-- Packaged static web assets for local script and stylesheet loading
-
----
+A Blazor tooltip component positioned with [Floating UI](https://floating-ui.com/), with collision handling, delayed hover behavior, rich content, and manual control.
 
 ## Installation
 
@@ -32,7 +14,7 @@
 dotnet add package Soenneker.Blazor.Floating.Tooltips
 ```
 
-Register the service:
+Register the scoped interop service:
 
 ```csharp
 using Soenneker.Blazor.Floating.Tooltips.Registrars;
@@ -40,7 +22,7 @@ using Soenneker.Blazor.Floating.Tooltips.Registrars;
 builder.Services.AddFloatingTooltipAsScoped();
 ```
 
-Add the namespace where you use the components:
+Add these namespaces to `_Imports.razor`:
 
 ```razor
 @using Soenneker.Blazor.Floating.Tooltips
@@ -48,121 +30,86 @@ Add the namespace where you use the components:
 @using Soenneker.Blazor.Floating.Tooltips.Options
 ```
 
----
-
-## Usage
-
-Basic tooltip with plain text:
+## Basic tooltip
 
 ```razor
-<FloatingTooltip Text="Hello tooltip!">
-    <button class="btn">Hover me</button>
-</FloatingTooltip>
-```
-
-Tooltip with options and event callbacks:
-
-```razor
-<FloatingTooltip Text="This is an interactive tooltip"
+<FloatingTooltip Text="Creates a copy"
                  Placement="FloatingTooltipPlacement.Top"
-                 Animate="true"
-                 ShowArrow="true"
-                 Interactive="true"
-                 OnShow="HandleShow"
-                 OnHide="HandleHide"
-                 Theme="FloatingTooltipTheme.Dark">
-    <span class="text-muted">Hover over me</span>
+                 ShowDelay="300">
+    <button type="button" aria-label="Copy invoice">Copy</button>
 </FloatingTooltip>
-
-@code {
-    private void HandleShow() => Console.WriteLine("Tooltip shown");
-    private void HandleHide() => Console.WriteLine("Tooltip hidden");
-}
 ```
 
-Rich content with `TooltipContent`:
+The first child element is the positioning anchor. When the wrapper contains multiple elements, add `data-tooltip-anchor` to the element that should anchor the tooltip.
+
+Tooltips should supplement an accessible label, not replace it: hover content is not reliably available to keyboard, touch, or assistive-technology users.
+
+## Rich, interactive content
 
 ```razor
-<FloatingTooltip>
+<FloatingTooltip Placement="FloatingTooltipPlacement.Bottom"
+                 Interactive="true"
+                 MaxWidth="320">
     <TooltipContent>
-        <div class="p-2">
-            <strong>Smart Tooltip</strong><br />
-            Rich content goes here.
+        <div>
+            <strong>Keyboard shortcuts</strong>
+            <div>Save: Ctrl+S</div>
         </div>
     </TooltipContent>
 
-    <button class="btn btn-primary">Hover me</button>
+    <button type="button">Shortcuts</button>
 </FloatingTooltip>
 ```
 
----
+Use either `Text` or `TooltipContent`; setting both throws an `InvalidOperationException`. `Interactive` keeps the tooltip open while its content is hovered.
 
 ## Options
 
-You can set options through `FloatingTooltipOptions`:
+Inline parameters override values supplied through `Options`:
 
 ```razor
-@using Soenneker.Blazor.Floating.Tooltips.Enums
-@using Soenneker.Blazor.Floating.Tooltips.Options
-
-<FloatingTooltip Text="Configured tooltip" Options="_options">
-    <button>Hover me</button>
+<FloatingTooltip Text="Saved"
+                 Options="_defaults"
+                 Theme="FloatingTooltipTheme.Success">
+    <button type="button">Save</button>
 </FloatingTooltip>
 
 @code {
-    private readonly FloatingTooltipOptions _options = new()
+    private readonly FloatingTooltipOptions _defaults = new()
     {
+        Placement = FloatingTooltipPlacement.Right,
         Animate = true,
         ShowArrow = true,
-        Theme = FloatingTooltipTheme.Light,
-        MaxWidth = 250,
-        ManualTrigger = false,
-        UseCdn = true
+        ShowDelay = 150,
+        HideDelay = 100,
+        MaxWidth = 240,
+        UseCdn = false
     };
 }
 ```
 
-Or set the same values inline:
+Available placements are `Top`, `Bottom`, `Left`, and `Right`. Themes are `Dark`, `Light`, `Info`, `Success`, `Warning`, and `Error`. Configuration is applied when the tooltip is created; use `@key` to recreate the component when its configuration must change at runtime.
 
-```razor
-<FloatingTooltip Text="Inline options"
-                 Animate="true"
-                 Theme="FloatingTooltipTheme.Dark"
-                 ShowArrow="true">
-    <button>Hover me</button>
-</FloatingTooltip>
-```
+`UseCdn` defaults to `true`. Set it to `false` to load the packaged Floating UI scripts; the tooltip stylesheet is always loaded from the package.
 
-`UseCdn` defaults to `true`. When set to `false`, the library loads its bundled static web assets from `_content/Soenneker.Blazor.Floating.Tooltips/...`, which works with Blazor base paths such as GitHub Pages project sites.
-
----
-
-## Programmatic Control
-
-Use `@ref` to control a tooltip manually:
+## Manual control
 
 ```razor
 <FloatingTooltip @ref="_tooltip"
-                 Text="Controlled manually"
+                 Text="Copied"
                  ManualTrigger="true">
-    <button @onclick="ToggleTooltip">Toggle tooltip</button>
+    <button type="button" @onclick="Copy">Copy</button>
 </FloatingTooltip>
 
 @code {
     private FloatingTooltip? _tooltip;
 
-    private async Task ToggleTooltip()
+    private async Task Copy()
     {
-        if (_tooltip is not null)
-            await _tooltip.Toggle();
+        // Copy the value, then show confirmation.
+        await _tooltip!.Show();
     }
 }
 ```
 
-Available methods:
-
-```csharp
-await tooltip.Show();
-await tooltip.Hide();
-await tooltip.Toggle();
-```
+`Show()`, `Hide()`, and `Toggle()` control a manual tooltip. `OnShow` and `OnHide` run when visibility actually changes, after any configured delay.

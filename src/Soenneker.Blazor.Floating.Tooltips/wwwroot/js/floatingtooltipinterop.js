@@ -1,8 +1,12 @@
 ﻿const cleanups = new Map();
 const timeouts = new Map();
 const handlersByTooltipId = new Map();
+const callbacksByTooltipId = new Map();
+const observersByTooltipId = new Map();
 
 export async function create(id, optionsJson) {
+    dispose(id);
+
     const options = JSON.parse(optionsJson);
     options.placement ||= "top";
 
@@ -71,7 +75,10 @@ export async function create(id, optionsJson) {
 
         const showDelay = options.showDelay || 0;
         const showTimeout = setTimeout(() => {
+            if (tooltip.classList.contains("visible")) return;
+
             tooltip.classList.add("visible");
+            callbacksByTooltipId.get(id)?.invokeMethodAsync("InvokeOnShow").catch(console.error);
 
             cleanup = window.FloatingUIDOM.autoUpdate(reference, tooltip, async () => {
                 try {
@@ -139,7 +146,10 @@ export async function create(id, optionsJson) {
 
         const hideDelay = options.hideDelay || 0;
         const hideTimeout = setTimeout(() => {
+            if (!tooltip.classList.contains("visible")) return;
+
             tooltip.classList.remove("visible");
+            callbacksByTooltipId.get(id)?.invokeMethodAsync("InvokeOnHide").catch(console.error);
             if (cleanup) {
                 cleanup();
                 cleanup = null;
@@ -221,20 +231,11 @@ function observeAnchorRemoval(anchorId, tooltipId) {
     });
 
     observer.observe(target.parentNode, { childList: true });
+    observersByTooltipId.set(tooltipId, observer);
 }
 
 export function setCallbacks(id, dotNetRef) {
-    const anchorId = "anchor-" + id;
-    const anchor = document.getElementById(anchorId);
-    if (!anchor) return;
-
-    anchor.addEventListener("mouseenter", () => {
-        dotNetRef.invokeMethodAsync("InvokeOnShow").catch(console.error);
-    });
-
-    anchor.addEventListener("mouseleave", () => {
-        dotNetRef.invokeMethodAsync("InvokeOnHide").catch(console.error);
-    });
+    callbacksByTooltipId.set(id, dotNetRef);
 }
 
 export function dispose(id) {
@@ -252,6 +253,13 @@ export function dispose(id) {
     timeouts.delete(`hide-${id}`);
 
     handlersByTooltipId.delete(id);
+    callbacksByTooltipId.delete(id);
+
+    const observer = observersByTooltipId.get(id);
+    if (observer) {
+        observer.disconnect();
+        observersByTooltipId.delete(id);
+    }
 }
 
 export function show(id) {
