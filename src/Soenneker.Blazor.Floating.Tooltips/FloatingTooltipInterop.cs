@@ -13,7 +13,7 @@ using Soenneker.Asyncs.Initializers;
 
 namespace Soenneker.Blazor.Floating.Tooltips;
 
-///<inheritdoc cref="IFloatingTooltipInterop"/>
+/// <inheritdoc cref="IFloatingTooltipInterop"/>
 public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
 {
     private const string _modulePath = "_content/Soenneker.Blazor.Floating.Tooltips/js/floatingtooltipinterop.js";
