@@ -97,15 +97,21 @@ public interface IFloatingTooltip : ILeptonCancellableIdentifiableContentElement
     /// <summary>
     /// Shows the tooltip manually. Only applicable if <see cref="ManualTrigger"/> is <c>true</c>.
     /// </summary>
+    /// <param name="cancellationToken">Token used to cancel the operation.</param>
+    /// <returns>A task that completes when the show operation is complete.</returns>
     ValueTask Show(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Hides the tooltip manually. Only applicable if <see cref="ManualTrigger"/> is <c>true</c>.
     /// </summary>
+    /// <param name="cancellationToken">Token used to cancel the operation.</param>
+    /// <returns>A task that completes when the hide operation is complete.</returns>
     ValueTask Hide(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Toggles the tooltip visibility manually. Only applicable if <see cref="ManualTrigger"/> is <c>true</c>.
     /// </summary>
+    /// <param name="cancellationToken">Token used to cancel the operation.</param>
+    /// <returns>A task that completes when the toggle operation is complete.</returns>
     ValueTask Toggle(CancellationToken cancellationToken = default);
 }

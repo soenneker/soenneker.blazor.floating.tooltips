@@ -17,6 +17,7 @@ public interface IFloatingTooltipInterop : IAsyncDisposable
     /// </summary>
     /// <param name="useCdn">Whether to load scripts from CDN or from local embedded resources.</param>
     /// <param name="cancellationToken">A cancellation token to cancel the operation.</param>
+    /// <returns>A task that completes when the Floating Tooltip is ready for use.</returns>
     ValueTask Initialize(bool useCdn = true, CancellationToken cancellationToken = default);
 
     /// <summary>
@@ -25,6 +26,7 @@ public interface IFloatingTooltipInterop : IAsyncDisposable
     /// <param name="id">The unique ID used to resolve anchor and tooltip DOM elements (e.g., anchor-{id}, tooltip-{id}).</param>
     /// <param name="options">The configuration options used for positioning and middleware setup.</param>
     /// <param name="cancellationToken">A cancellation token to cancel the operation.</param>
+    /// <returns>A task that completes when the create operation is complete.</returns>
     ValueTask Create(string id, FloatingTooltipOptions options, CancellationToken cancellationToken = default);
 
     /// <summary>
@@ -32,6 +34,7 @@ public interface IFloatingTooltipInterop : IAsyncDisposable
     /// </summary>
     /// <param name="id">The unique tooltip ID corresponding to the anchor element.</param>
     /// <param name="dotNetRef">A .NET reference to the component implementing the JSInvokable event handlers.</param>
+    /// <returns>A task that completes when the callbacks has been stored.</returns>
     ValueTask SetCallbacks(string id, DotNetObjectReference<FloatingTooltip> dotNetRef);
 
     /// <summary>
@@ -39,34 +42,36 @@ public interface IFloatingTooltipInterop : IAsyncDisposable
     /// </summary>
     /// <param name="id">The ID of the tooltip/anchor pair to clean up.</param>
     /// <param name="cancellationToken">A cancellation token to cancel the operation.</param>
+    /// <returns>A task that completes when the destroy operation is complete.</returns>
     ValueTask Destroy(string id, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Executes the show operation.
+    /// Shows floating tooltip for the floating tooltip.
     /// </summary>
-    /// <param name="id">The identifier.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A task that represents the asynchronous operation.</returns>
+    /// <param name="id">Identifier of the floating tooltip instance or registration to target.</param>
+    /// <param name="cancellationToken">Token used to cancel the operation.</param>
+    /// <returns>A task that completes when the show operation is complete.</returns>
     ValueTask Show(string id, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Executes the hide operation.
+    /// Hides floating tooltip for the floating tooltip.
     /// </summary>
-    /// <param name="id">The identifier.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A task that represents the asynchronous operation.</returns>
+    /// <param name="id">Identifier of the floating tooltip instance or registration to target.</param>
+    /// <param name="cancellationToken">Token used to cancel the operation.</param>
+    /// <returns>A task that completes when the hide operation is complete.</returns>
     ValueTask Hide(string id, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Executes the toggle operation.
+    /// Toggles floating tooltip for the floating tooltip.
     /// </summary>
-    /// <param name="id">The identifier.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A task that represents the asynchronous operation.</returns>
+    /// <param name="id">Identifier of the floating tooltip instance or registration to target.</param>
+    /// <param name="cancellationToken">Token used to cancel the operation.</param>
+    /// <returns>A task that completes when the toggle operation is complete.</returns>
     ValueTask Toggle(string id, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Disposes internal state and JavaScript module references.
     /// </summary>
+    /// <returns>A task that completes when the dispose async operation is complete.</returns>
     new ValueTask DisposeAsync();
 }

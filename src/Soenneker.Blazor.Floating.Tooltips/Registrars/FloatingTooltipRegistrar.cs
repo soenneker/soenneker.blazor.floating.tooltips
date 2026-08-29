@@ -12,6 +12,8 @@ public static class FloatingTooltipRegistrar
     /// <summary>
     /// Adds <see cref="IFloatingTooltip"/> as a scoped service. <para/>
     /// </summary>
+    /// <param name="services">Service collection that receives the registration.</param>
+    /// <returns>The same service collection, so additional registrations can be chained.</returns>
     public static IServiceCollection AddFloatingTooltipAsScoped(this IServiceCollection services)
     {
         services.AddFloatingUiInteropAsScoped()
