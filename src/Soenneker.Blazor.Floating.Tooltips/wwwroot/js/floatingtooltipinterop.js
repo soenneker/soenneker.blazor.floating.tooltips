@@ -221,7 +221,7 @@ function observeAnchorRemoval(anchorId, tooltipId) {
 
     const observer = new MutationObserver((mutations) => {
         const targetRemoved = mutations.some(mutation =>
-            Array.from(mutation.removedNodes).includes(target)
+            Array.prototype.includes.call(mutation.removedNodes, target)
         );
 
         if (targetRemoved) {
