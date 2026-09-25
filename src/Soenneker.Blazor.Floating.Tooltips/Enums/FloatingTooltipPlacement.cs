@@ -8,6 +8,9 @@ namespace Soenneker.Blazor.Floating.Tooltips.Enums;
 [EnumValue<string>]
 public sealed partial class FloatingTooltipPlacement
 {
+    // Prevent JSON source generation from assuming an implicit public constructor.
+    private FloatingTooltipPlacement() => throw new System.NotSupportedException("Use a declared enum value.");
+
     /// <summary>
     /// The top.
     /// </summary>
