@@ -47,7 +47,7 @@
     <ItemGroup>
 <PackageReference Include="Soenneker.Blazor.Interops.Floating" Version="4.0.103" />
         <PackageReference Include="Soenneker.Blazor.Extensions.EventCallback" Version="4.0.462" />
-<PackageReference Include="Soenneker.Utils.Json" Version="4.0.2730" />
+<PackageReference Include="Soenneker.Utils.Json" Version="4.0.2731" />
         <PackageReference Include="Soenneker.Lepton.Suite" Version="4.0.91" />
     </ItemGroup>
 </Project>
