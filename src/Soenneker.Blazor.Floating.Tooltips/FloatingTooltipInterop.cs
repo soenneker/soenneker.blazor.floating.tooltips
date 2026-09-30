@@ -16,10 +16,7 @@ namespace Soenneker.Blazor.Floating.Tooltips;
 /// <inheritdoc cref="IFloatingTooltipInterop"/>
 public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
 {
-    private readonly System.Text.Json.JsonSerializerOptions _jsonOptions;
 
-    private System.Text.Json.Serialization.Metadata.JsonTypeInfo<T> GetJsonTypeInfo<T>() =>
-        (System.Text.Json.Serialization.Metadata.JsonTypeInfo<T>)_jsonOptions.GetTypeInfo(typeof(T));
 
     private const string _modulePath = "_content/Soenneker.Blazor.Floating.Tooltips/js/floatingtooltipinterop.js";
 
@@ -32,7 +29,6 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
 
     public FloatingTooltipInterop(IResourceLoader resourceLoader, IFloatingUiInterop floatingUiInterop, IModuleImportUtil moduleImportUtil)
     {
-        _jsonOptions = LibraryJsonContext.CreateOptions();
         _resourceLoader = resourceLoader;
         _floatingUiInterop = floatingUiInterop;
         _moduleImportUtil = moduleImportUtil;
@@ -64,7 +60,7 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
         {
             await _scriptInitializer.Init(options.UseCdn, linked);
 
-            string json = JsonUtil.Serialize(options, GetJsonTypeInfo<FloatingTooltipOptions>())!;
+            string json = JsonUtil.Serialize(options)!;
 
             IJSObjectReference module = await _moduleImportUtil.GetContentModuleReference(_modulePath, linked);
             await module.InvokeVoidAsync("create", linked, id, json);
