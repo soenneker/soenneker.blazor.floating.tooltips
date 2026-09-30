@@ -26,6 +26,17 @@ internal partial class LibraryJsonContext : JsonSerializerContext
     internal static JsonTypeInfo<T> Get<T>() =>
         (JsonTypeInfo<T>)(Default.GetTypeInfo(typeof(T)) ?? throw new NotSupportedException($"No generated JSON metadata for {typeof(T)}."));
 
+    internal static JsonSerializerOptions CreateOptions()
+    {
+        JsonSerializerOptions defaults = Get<object>().Options;
+        var options = new JsonSerializerOptions(defaults)
+        {
+            TypeInfoResolver = JsonTypeInfoResolver.Combine(defaults.TypeInfoResolver!, new DefaultJsonTypeInfoResolver())
+        };
+        options.Converters.Add(new JsonStringEnumConverter());
+        options.MakeReadOnly();
+        return options;
+    }
     internal static JsonSerializerOptions WithContext(JsonSerializerContext? additionalContext)
     {
         JsonSerializerOptions defaults = Get<object>().Options;

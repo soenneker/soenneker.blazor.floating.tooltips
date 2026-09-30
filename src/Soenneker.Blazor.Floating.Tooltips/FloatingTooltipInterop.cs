@@ -30,9 +30,9 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
 
     private readonly CancellationScope _cancellationScope = new();
 
-    public FloatingTooltipInterop(IResourceLoader resourceLoader, IFloatingUiInterop floatingUiInterop, IModuleImportUtil moduleImportUtil, System.Text.Json.Serialization.JsonSerializerContext? jsonContext = null)
+    public FloatingTooltipInterop(IResourceLoader resourceLoader, IFloatingUiInterop floatingUiInterop, IModuleImportUtil moduleImportUtil)
     {
-        _jsonOptions = LibraryJsonContext.WithContext(jsonContext);
+        _jsonOptions = LibraryJsonContext.CreateOptions();
         _resourceLoader = resourceLoader;
         _floatingUiInterop = floatingUiInterop;
         _moduleImportUtil = moduleImportUtil;
