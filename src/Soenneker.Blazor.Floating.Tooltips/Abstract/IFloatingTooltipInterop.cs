@@ -10,6 +10,11 @@ namespace Soenneker.Blazor.Floating.Tooltips.Abstract;
 /// Provides JavaScript interop methods for initializing, controlling, and destroying Floating UI-based tooltips in a Blazor application.
 /// </summary>
 /// <remarks>Payloads use JsonUtil web JSON defaults, including custom values inside object-typed properties.</remarks>
+/// <remarks>
+/// For trimmed applications, register a <see cref="System.Text.Json.Serialization.JsonSerializerContext"/>
+/// containing any application-defined payload types in dependency injection. The interop combines that
+/// metadata with its built-in JSON contracts without falling back to reflection.
+/// </remarks>
 public interface IFloatingTooltipInterop : IAsyncDisposable
 {
     /// <summary>
