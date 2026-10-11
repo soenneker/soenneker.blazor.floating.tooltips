@@ -48,7 +48,7 @@
 <PackageReference Include="Soenneker.Blazor.Interops.Floating" Version="4.0.106" />
         <PackageReference Include="Soenneker.Blazor.Extensions.EventCallback" Version="4.0.463" />
 <PackageReference Include="Soenneker.Utils.Json" Version="4.0.2735" />
-        <PackageReference Include="Soenneker.Lepton.Suite" Version="4.0.94" />
+        <PackageReference Include="Soenneker.Lepton.Suite" Version="4.0.95" />
     </ItemGroup>
     <ItemGroup>
         <InternalsVisibleTo Include="Soenneker.Blazor.Floating.Tooltips.TrimSmoke" />
