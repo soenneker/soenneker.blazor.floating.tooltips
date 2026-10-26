@@ -45,10 +45,10 @@
     </ItemGroup>
 
     <ItemGroup>
-<PackageReference Include="Soenneker.Blazor.Interops.Floating" Version="4.0.129" />
-        <PackageReference Include="Soenneker.Blazor.Extensions.EventCallback" Version="4.0.473" />
-<PackageReference Include="Soenneker.Utils.Json" Version="4.0.2757" />
-        <PackageReference Include="Soenneker.Lepton.Suite" Version="11.0.132" />
+<PackageReference Include="Soenneker.Blazor.Interops.Floating" Version="11.0.131" />
+        <PackageReference Include="Soenneker.Blazor.Extensions.EventCallback" Version="11.0.474" />
+<PackageReference Include="Soenneker.Utils.Json" Version="11.0.2762" />
+        <PackageReference Include="Soenneker.Lepton.Suite" Version="11.0.133" />
     </ItemGroup>
     <ItemGroup>
         <InternalsVisibleTo Include="Soenneker.Blazor.Floating.Tooltips.TrimSmoke" />
