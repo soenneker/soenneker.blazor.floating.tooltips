@@ -66,19 +66,33 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
 
         using (source)
         {
-            await _scriptInitializer.Init(options.UseCdn, linked);
+            try
+            {
+                await _scriptInitializer.Init(options.UseCdn, linked);
 
-            string json = JsonUtil.Serialize(options, GetJsonTypeInfo<FloatingTooltipOptions>())!;
+                string json = JsonUtil.Serialize(options, GetJsonTypeInfo<FloatingTooltipOptions>())!;
 
-            IJSObjectReference module = await _moduleImportUtil.GetContentModuleReference(_modulePath, linked);
-            await module.InvokeVoidAsync("create", linked, id, json);
+                IJSObjectReference module = await _moduleImportUtil.GetContentModuleReference(_modulePath, linked);
+                await module.InvokeVoidAsync("create", linked, id, json);
+            }
+            catch (JSException exception)
+            {
+                throw new JSException($"JavaScript operation 'FloatingTooltipInterop.Create' failed: {exception.Message}", exception);
+            }
         }
     }
 
     public async ValueTask SetCallbacks(string id, DotNetObjectReference<FloatingTooltip> dotNetRef)
     {
-        IJSObjectReference module = await _moduleImportUtil.GetContentModuleReference(_modulePath, CancellationToken.None);
-        await module.InvokeVoidAsync("setCallbacks", CancellationToken.None, id, dotNetRef);
+        try
+        {
+            IJSObjectReference module = await _moduleImportUtil.GetContentModuleReference(_modulePath, CancellationToken.None);
+            await module.InvokeVoidAsync("setCallbacks", CancellationToken.None, id, dotNetRef);
+        }
+        catch (JSException exception)
+        {
+            throw new JSException($"JavaScript operation 'FloatingTooltipInterop.SetCallbacks' failed: {exception.Message}", exception);
+        }
     }
 
     public async ValueTask Destroy(string id, CancellationToken cancellationToken = default)
@@ -87,8 +101,15 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
 
         using (source)
         {
-            IJSObjectReference module = await _moduleImportUtil.GetContentModuleReference(_modulePath, linked);
-            await module.InvokeVoidAsync("dispose", linked, id);
+            try
+            {
+                IJSObjectReference module = await _moduleImportUtil.GetContentModuleReference(_modulePath, linked);
+                await module.InvokeVoidAsync("dispose", linked, id);
+            }
+            catch (JSException exception)
+            {
+                throw new JSException($"JavaScript operation 'FloatingTooltipInterop.Destroy' failed: {exception.Message}", exception);
+            }
         }
     }
 
@@ -98,8 +119,15 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
 
         using (source)
         {
-            IJSObjectReference module = await _moduleImportUtil.GetContentModuleReference(_modulePath, linked);
-            await module.InvokeVoidAsync("show", linked, id);
+            try
+            {
+                IJSObjectReference module = await _moduleImportUtil.GetContentModuleReference(_modulePath, linked);
+                await module.InvokeVoidAsync("show", linked, id);
+            }
+            catch (JSException exception)
+            {
+                throw new JSException($"JavaScript operation 'FloatingTooltipInterop.Show' failed: {exception.Message}", exception);
+            }
         }
     }
 
@@ -109,8 +137,15 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
 
         using (source)
         {
-            IJSObjectReference module = await _moduleImportUtil.GetContentModuleReference(_modulePath, linked);
-            await module.InvokeVoidAsync("hide", linked, id);
+            try
+            {
+                IJSObjectReference module = await _moduleImportUtil.GetContentModuleReference(_modulePath, linked);
+                await module.InvokeVoidAsync("hide", linked, id);
+            }
+            catch (JSException exception)
+            {
+                throw new JSException($"JavaScript operation 'FloatingTooltipInterop.Hide' failed: {exception.Message}", exception);
+            }
         }
     }
 
@@ -120,8 +155,15 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
 
         using (source)
         {
-            IJSObjectReference module = await _moduleImportUtil.GetContentModuleReference(_modulePath, linked);
-            await module.InvokeVoidAsync("toggle", linked, id);
+            try
+            {
+                IJSObjectReference module = await _moduleImportUtil.GetContentModuleReference(_modulePath, linked);
+                await module.InvokeVoidAsync("toggle", linked, id);
+            }
+            catch (JSException exception)
+            {
+                throw new JSException($"JavaScript operation 'FloatingTooltipInterop.Toggle' failed: {exception.Message}", exception);
+            }
         }
     }
 
