@@ -26,7 +26,7 @@ public sealed class FloatingTooltipInterop : IFloatingTooltipInterop
 
 
 
-    private const string _modulePath = "_content/Soenneker.Blazor.Floating.Tooltips/js/floatingtooltipinterop.js";
+    private const string _modulePath = "_content/Soenneker.Blazor.Floating.Tooltips/js/floatingtooltipinterop.min.js";
 
     private readonly IResourceLoader _resourceLoader;
     private readonly IFloatingUiInterop _floatingUiInterop;
