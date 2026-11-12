@@ -47,7 +47,7 @@
     </ItemGroup>
 
     <ItemGroup>
-<PackageReference Include="Soenneker.Blazor.Interops.Floating" Version="11.0.161" />
+<PackageReference Include="Soenneker.Blazor.Interops.Floating" Version="11.0.162" />
         <PackageReference Include="Soenneker.Blazor.Extensions.EventCallback" Version="11.0.476" />
 <PackageReference Include="Soenneker.Utils.Json" Version="11.0.2787" />
         <PackageReference Include="Soenneker.Lepton.Suite" Version="11.0.143" />
@@ -59,6 +59,6 @@
         <PackageReference Include="Soenneker.Blazor.Extensions.IJSObjectReferences" Version="11.0.6" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Soenneker.Gen.Web.Minifier" Version="11.0.66" PrivateAssets="all" />
+        <PackageReference Include="Soenneker.Gen.Web.Minifier" Version="11.0.67" PrivateAssets="all" />
     </ItemGroup>
 </Project>
